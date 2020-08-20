@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.Adress;
@@ -26,13 +27,18 @@ public class PersonController {
 	@Autowired
 	private AdressController adressController;
 
+	@GetMapping
+	public @ResponseBody Iterable<Person> getAll() {
+		return personDao.findAll();
+	}
+
 	@GetMapping(value = "/{id}")
-	public Optional<Person> getById(@PathVariable("id") final int id) {
+	public @ResponseBody Optional<Person> getById(@PathVariable("id") final int id) {
 		return personDao.findById(id);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public Person delete(@PathVariable("id") final int id) {
+	public @ResponseBody Person delete(@PathVariable("id") final int id) {
 
 		Optional<Person> optional = personDao.findById(id);
 		if (optional.isPresent()) {
