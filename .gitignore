@@ -33,3 +33,5 @@ build/
 .vscode/
 
 .directory
+
+src/test/resources/clubhelper_export.sql
