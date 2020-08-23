@@ -60,7 +60,7 @@ CREATE TABLE contact (
 CREATE TABLE clubevent (
   id varchar(250) NOT NULL,
   location varchar(255) DEFAULT NULL,
-  iCalUID varchar(150) DEFAULT NULL,
+  ICALUID varchar(150) DEFAULT NULL,
   organizerDisplayName varchar(150) DEFAULT NULL,
   caption varchar(150) DEFAULT NULL,
   description varchar(500) DEFAULT NULL,
