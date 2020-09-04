@@ -10,119 +10,128 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @MappedSuperclass
-public abstract class BaseEntity implements EntityAccessor {
+public abstract class BaseEntity implements EntityAccessor
+{
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private int id;
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date changed;
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date created;
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date deleted;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+   public Date getChanged()
+   {
+      if (changed == null) {
+         return null;
+      }
+      return new Date(this.changed.getTime());
+   }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date changed;
+   @Override
+   public void setChanged(Date changed)
+   {
+      this.changed = new Date(changed.getTime());
+   }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+   public Date getCreated()
+   {
+      if (created == null) {
+         return null;
+      }
+      return new Date(this.created.getTime());
+   }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deleted;
+   @Override
+   public void setCreated(Date created)
+   {
+      this.created = new Date(created.getTime());
+   }
 
-    public Date getChanged() {
-	if (changed == null) {
-	    return null;
-	}
-	return new Date(this.changed.getTime());
-    }
+   public Date getDeleted()
+   {
+      if (deleted == null) {
+         return null;
+      }
+      return new Date(this.deleted.getTime());
+   }
 
-    @Override
-    public void setChanged(Date changed) {
-	this.changed = new Date(changed.getTime());
-    }
+   public void setDeleted(Date deleted)
+   {
+      this.deleted = new Date(deleted.getTime());
+   }
 
-    public Date getCreated() {
-	if (created == null) {
-	    return null;
-	}
-	return new Date(this.created.getTime());
-    }
+   @Override
+   public Integer getId()
+   {
+      return id;
+   }
 
-    @Override
-    public void setCreated(Date created) {
-	this.created = new Date(created.getTime());
-    }
+   public void setId(int id)
+   {
+      this.id = id;
+   }
 
-    public Date getDeleted() {
-	if (deleted == null) {
-	    return null;
-	}
-	return new Date(this.deleted.getTime());
-    }
+   @Override
+   public boolean hasValidId()
+   {
+      return id > 0;
+   }
 
-    public void setDeleted(Date deleted) {
-	this.deleted = new Date(deleted.getTime());
-    }
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((changed == null) ? 0 : changed.hashCode());
+      result = prime * result + ((created == null) ? 0 : created.hashCode());
+      result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
+      result = prime * result + id;
+      return result;
+   }
 
-    @Override
-    public Integer getId() {
-	return id;
-    }
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj) {
+         return true;
+      }
+      if (obj == null) {
+         return false;
+      }
+      if (getClass() != obj.getClass()) {
+         return false;
+      }
+      BaseEntity other = (BaseEntity) obj;
+      if (deleted == null) {
+         if (other.deleted != null) {
+            return false;
+         }
+      }
+      else if (!deleted.equals(other.deleted)) {
+         return false;
+      }
+      if (id != other.id) {
+         return false;
+      }
+      return true;
+   }
 
-    public void setId(int id) {
-	this.id = id;
-    }
-
-    @Override
-    public boolean hasValidId() {
-	return id > 0;
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((changed == null) ? 0 : changed.hashCode());
-	result = prime * result + ((created == null) ? 0 : created.hashCode());
-	result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
-	result = prime * result + id;
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	BaseEntity other = (BaseEntity) obj;
-	if (deleted == null) {
-	    if (other.deleted != null) {
-		return false;
-	    }
-	} else if (!deleted.equals(other.deleted)) {
-	    return false;
-	}
-	if (id != other.id) {
-	    return false;
-	}
-	return true;
-    }
-
-    @Override
-    public String toString() {
-	StringBuilder stringBuilder = new StringBuilder();
-	stringBuilder.append("BaseEntity [id=");
-	stringBuilder.append(id);
-	stringBuilder.append(", changed=");
-	stringBuilder.append(changed);
-	if (deleted != null) {
-	    stringBuilder.append(", deleted=");
-	    stringBuilder.append(deleted);
-	}
-	stringBuilder.append("]");
-	return stringBuilder.toString();
-    }
-
+   @Override
+   public String toString()
+   {
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.append("BaseEntity [id=");
+      stringBuilder.append(id);
+      stringBuilder.append(", changed=");
+      stringBuilder.append(changed);
+      if (deleted != null) {
+         stringBuilder.append(", deleted=");
+         stringBuilder.append(deleted);
+      }
+      stringBuilder.append("]");
+      return stringBuilder.toString();
+   }
 }

@@ -16,6 +16,7 @@ import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.Adress;
 import de.kreth.clubhelper.model.data.Contact;
 import de.kreth.clubhelper.model.data.Person;
+import io.swagger.annotations.ApiOperation;
 
 @Controller
 @RequestMapping("/person")
@@ -24,13 +25,16 @@ public class PersonController
 {
    @Autowired
    private PersonDao personDao;
+   
    @Autowired
    private ContactController contactController;
+   
    @Autowired
    private AdressController adressController;
 
    @GetMapping
    @PreAuthorize("hasAnyRole('trainer', 'admin')")
+   @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
    public @ResponseBody Iterable<Person> getAll()
    {
       return personDao.findAll();

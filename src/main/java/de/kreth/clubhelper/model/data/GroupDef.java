@@ -10,45 +10,47 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the groupDef database table.
- * 
  */
 @Entity
 @Table(name = "groupdef")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQuery(name = GroupDef.QUERY_FINDALL, query = "SELECT g FROM GroupDef g")
-public class GroupDef extends BaseEntity implements Serializable {
+public class GroupDef extends BaseEntity implements Serializable
+{
+   private static final long serialVersionUID = 1L;
+   public final static String QUERY_FINDALL = "GroupDef.findAll";
+   
+   private String name;
 
-    private static final long serialVersionUID = 1L;
+   public String getName()
+   {
+      return name;
+   }
 
-    public final static String QUERY_FINDALL = "GroupDef.findAll";
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-    private String name;
+   @Override
+   public int hashCode()
+   {
+      final int prime = 53;
+      return prime * super.hashCode();
+   }
 
-    public String getName() {
-	return name;
-    }
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj) {
+         return true;
+      }
+      return super.equals(obj);
+   }
 
-    public void setName(String name) {
-	this.name = name;
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 53;
-	return prime * super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-	return "GroupDef [id=" + getId() + ", name=" + name + "]";
-    }
-
+   @Override
+   public String toString()
+   {
+      return "GroupDef [id=" + getId() + ", name=" + name + "]";
+   }
 }

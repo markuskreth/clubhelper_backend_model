@@ -14,4 +14,5 @@ public interface AttendanceDao extends CrudRepository<Attendance, Integer> {
 
 	List<Attendance> findByPerson(Person person);
 
+	Attendance findByPersonAndOnDate(Person person, Date onDate);
 }
