@@ -1,17 +1,14 @@
 package de.kreth.clubhelper.model.data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the attendance database table.
@@ -19,57 +16,49 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "attendance")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "Attendance.findAll", query = "SELECT a FROM Attendance a")
-public class Attendance extends BaseEntity implements Serializable
-{
-   private static final long serialVersionUID = 2385033161272078335L;
-   @Temporal(TemporalType.TIMESTAMP)
-   @Column(name = "on_date")
-   private Date onDate;
-   // bi-directional many-to-one association to Person
-   @ManyToOne
-   private Person person;
+public class Attendance extends BaseEntity implements Serializable {
 
-   public Date getOnDate()
-   {
-      return new Date(this.onDate.getTime());
-   }
+    private static final long serialVersionUID = 2385033161272078335L;
 
-   public Person getPerson()
-   {
-      return person;
-   }
+    @Column(name = "on_date")
+    private LocalDate onDate;
 
-   public void setPerson(Person person)
-   {
-      this.person = person;
-   }
+    @ManyToOne
+    private Person person;
 
-   public void setOnDate(Date onDate)
-   {
-      this.onDate = onDate;
-   }
+    public LocalDate getOnDate() {
+	return this.onDate;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 103;
-      int result = super.hashCode();
-      result = prime * result;
-      return result;
-   }
+    public Person getPerson() {
+	return person;
+    }
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-         return true;
-      return super.equals(obj);
-   }
+    public void setPerson(Person person) {
+	this.person = person;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "Attendance [person=" + person + ", onDate=" + onDate + "]";
-   }
+    public void setOnDate(LocalDate onDate) {
+	this.onDate = onDate;
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 103;
+	int result = super.hashCode();
+	result = prime * result;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+	return "Attendance [person=" + person + ", onDate=" + onDate + "]";
+    }
 }
