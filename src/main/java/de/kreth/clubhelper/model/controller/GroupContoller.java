@@ -34,12 +34,12 @@ public class GroupContoller
    }
 
    @GetMapping("/{id}")
-   public GroupDef getById(@PathVariable("id") int id) {
+   public GroupDef getById(@PathVariable("id") long id) {
       Supplier<HttpClientErrorException> supplier = () -> createNotFoundForId(id);
       return groupDao.findById(id).orElseThrow(supplier);
    }
 
-   private HttpClientErrorException createNotFoundForId(Integer id)
+   private HttpClientErrorException createNotFoundForId(long id)
    {
       HttpHeaders headers = new HttpHeaders();
       byte[] body = new byte[0];

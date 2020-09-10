@@ -41,13 +41,13 @@ public class PersonController
    }
 
    @GetMapping(value = "/{id}")
-   public @ResponseBody Optional<Person> getById(@PathVariable("id") final int id)
+   public @ResponseBody Optional<Person> getById(@PathVariable("id") final long id)
    {
       return personDao.findById(id);
    }
 
    @DeleteMapping(value = "/{id}")
-   public @ResponseBody Person delete(@PathVariable("id") final int id)
+   public @ResponseBody Person delete(@PathVariable("id") final long id)
    {
       Optional<Person> optional = personDao.findById(id);
       if (optional.isPresent()) {

@@ -15,58 +15,61 @@ import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the attendance database table.
- * 
  */
 @Entity
 @Table(name = "attendance")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQuery(name = "Attendance.findAll", query = "SELECT a FROM Attendance a")
-public class Attendance extends BaseEntity implements Serializable {
+public class Attendance extends BaseEntity implements Serializable
+{
+   private static final long serialVersionUID = 2385033161272078335L;
+   @Temporal(TemporalType.TIMESTAMP)
+   @Column(name = "on_date")
+   private Date onDate;
+   // bi-directional many-to-one association to Person
+   @ManyToOne
+   private Person person;
 
-    private static final long serialVersionUID = 2385033161272078335L;
+   public Date getOnDate()
+   {
+      return new Date(this.onDate.getTime());
+   }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "on_date")
-    private Date onDate;
+   public Person getPerson()
+   {
+      return person;
+   }
 
-    // bi-directional many-to-one association to Person
-    @ManyToOne
-    private Person person;
+   public void setPerson(Person person)
+   {
+      this.person = person;
+   }
 
-    public Date getOnDate() {
-	return new Date(this.onDate.getTime());
-    }
+   public void setOnDate(Date onDate)
+   {
+      this.onDate = onDate;
+   }
 
-    public Person getPerson() {
-	return person;
-    }
+   @Override
+   public int hashCode()
+   {
+      final int prime = 103;
+      int result = super.hashCode();
+      result = prime * result;
+      return result;
+   }
 
-    public void setPerson(Person person) {
-	this.person = person;
-    }
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      return super.equals(obj);
+   }
 
-    public void setOnDate(Date onDate) {
-	this.onDate = onDate;
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 103;
-	int result = super.hashCode();
-	result = prime * result;
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-	return "Attendance [person=" + person + ", onDate=" + onDate + "]";
-    }
-
+   @Override
+   public String toString()
+   {
+      return "Attendance [person=" + person + ", onDate=" + onDate + "]";
+   }
 }

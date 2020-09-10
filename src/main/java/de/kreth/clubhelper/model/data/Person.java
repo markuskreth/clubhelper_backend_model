@@ -11,7 +11,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -21,9 +20,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = Person.QUERY_FINDALL, query = "SELECT p FROM Person p WHERE p.deleted is null")
-@NamedQuery(name = Person.QUERY_FINDLOGIN, query = "FROM Person WHERE username = :username AND password = :password AND deleted is"
-	+ " null")
 public class Person extends BaseEntity implements Serializable {
 
     public static final String SESSION_LOGIN = "SESSION_LOGIN_USER";

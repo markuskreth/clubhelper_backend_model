@@ -15,18 +15,19 @@ import de.kreth.clubhelper.model.data.Person;
 @Controller
 @RequestMapping("/contact")
 @PreAuthorize("isAuthenticated()")
-public class ContactController {
+public class ContactController
+{
+   @Autowired
+   private ContactDao contactDao;
 
-    @Autowired
-    private ContactDao contactDao;
+   public List<Contact> getByParent(Person person)
+   {
+      return contactDao.findByPerson(person);
+   }
 
-    public List<Contact> getByParent(Person person) {
-	return contactDao.findByPerson(person);
-    }
-
-    public void delete(Contact c) {
-	c.setDeleted(new Date());
-	contactDao.save(c);
-    }
-
+   public void delete(Contact c)
+   {
+      c.setDeleted(new Date());
+      contactDao.save(c);
+   }
 }

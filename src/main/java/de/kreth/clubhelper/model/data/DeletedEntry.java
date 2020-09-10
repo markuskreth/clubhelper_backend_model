@@ -5,60 +5,61 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  * The persistent class for the deleted_entries database table.
- * 
  */
 @Entity
 @Table(name = "deleted_entries")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "DeletedEntry.findAll", query = "SELECT d FROM DeletedEntry d")
-public class DeletedEntry extends BaseEntity implements Serializable {
+public class DeletedEntry extends BaseEntity implements Serializable
+{
+   private static final long serialVersionUID = -4271189592258131845L;
+   private long entryId;
+   private String tablename;
 
-    private static final long serialVersionUID = -4271189592258131845L;
+   public long getEntryId()
+   {
+      return entryId;
+   }
 
-    private int entryId;
+   public void setEntryId(long entryId)
+   {
+      this.entryId = entryId;
+   }
 
-    private String tablename;
+   public String getTablename()
+   {
+      return tablename;
+   }
 
-    public int getEntryId() {
-	return entryId;
-    }
+   public void setTablename(String tablename)
+   {
+      this.tablename = tablename;
+   }
 
-    public void setEntryId(int entryId) {
-	this.entryId = entryId;
-    }
+   @Override
+   public int hashCode()
+   {
+      final int prime = 47;
+      int result = super.hashCode();
+      result = (int) (prime * result + entryId);
+      result = prime * result + ((tablename == null) ? 0 : tablename.hashCode());
+      return result;
+   }
 
-    public String getTablename() {
-	return tablename;
-    }
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      return super.equals(obj);
+   }
 
-    public void setTablename(String tablename) {
-	this.tablename = tablename;
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 47;
-	int result = super.hashCode();
-	result = prime * result + entryId;
-	result = prime * result + ((tablename == null) ? 0 : tablename.hashCode());
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-	return "DeletedEntry [entryId=" + entryId + ", tablename=" + tablename + "]";
-    }
-
+   @Override
+   public String toString()
+   {
+      return "DeletedEntry [entryId=" + entryId + ", tablename=" + tablename + "]";
+   }
 }

@@ -14,7 +14,7 @@ public abstract class BaseEntity implements EntityAccessor
 {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+   private long id;
    @Temporal(TemporalType.TIMESTAMP)
    private Date changed;
    @Temporal(TemporalType.TIMESTAMP)
@@ -63,13 +63,17 @@ public abstract class BaseEntity implements EntityAccessor
       this.deleted = new Date(deleted.getTime());
    }
 
+   public boolean isDeleted() {
+      return getDeleted() != null;
+   }
+   
    @Override
-   public Integer getId()
+   public Long getId()
    {
       return id;
    }
 
-   public void setId(int id)
+   public void setId(long id)
    {
       this.id = id;
    }
@@ -88,7 +92,7 @@ public abstract class BaseEntity implements EntityAccessor
       result = prime * result + ((changed == null) ? 0 : changed.hashCode());
       result = prime * result + ((created == null) ? 0 : created.hashCode());
       result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
-      result = prime * result + id;
+      result = (int) (prime * result + id);
       return result;
    }
 

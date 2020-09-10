@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -14,11 +13,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "groupdef")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = GroupDef.QUERY_FINDALL, query = "SELECT g FROM GroupDef g")
 public class GroupDef extends BaseEntity implements Serializable
 {
    private static final long serialVersionUID = 1L;
-   public final static String QUERY_FINDALL = "GroupDef.findAll";
    
    private String name;
 
