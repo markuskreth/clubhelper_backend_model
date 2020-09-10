@@ -1,13 +1,15 @@
-package de.kreth.clubhelperbackend.controller.abstr;
+package de.kreth.clubhelper.model.controller;
 
 import static de.kreth.clubhelperbackend.utils.BoolUtils.not;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +29,12 @@ import de.kreth.clubhelper.model.data.BaseEntity;
  */
 
 //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'STAFF')")
-public abstract class AbstractController<T extends BaseEntity>
+public abstract class AbstractController<T extends BaseEntity, D extends CrudRepository<T, Long>>
 		implements
 			ClubController<T> {
 
    @Autowired
-	protected ClubhelperDao<T> dao;
+	protected D dao;
    private Class<T> elementClass;
 
 	public AbstractController(Class<T> element) {
@@ -65,13 +67,22 @@ public abstract class AbstractController<T extends BaseEntity>
 	@Override
 	@GetMapping(value = "/for/{id}", produces = "application/json")
 	public List<T> getByParentId(@PathVariable("id") long id) {
-	   return dao.findByPersonId(id);
+	   if (dao instanceof ClubhelperDao) {
+	      ClubhelperDao<T> specialDao = (ClubhelperDao<T>) dao;
+	      return specialDao.findByPersonId(id);   
+	   }
+	   return Collections.emptyList();
 	}
 
 	@Override
 	@GetMapping(value = "/changed/{changed}", produces = "application/json")
 	public List<T> getChangedSince(@PathVariable("changed") long changed) {
-	   return dao.findByChangedGreaterThan(new Date(changed));
+
+      if (dao instanceof ClubhelperDao) {
+         ClubhelperDao<T> specialDao = (ClubhelperDao<T>) dao;
+         return specialDao.findByChangedGreaterThan(new Date(changed));
+      }
+      return Collections.emptyList();
 	}
 
 	@Override

@@ -38,10 +38,10 @@ class LoadPersonsTest
    @BeforeEach
    void loadGroups()
    {
-      aktive = groupDao.findById(1).get();
-      trainer = groupDao.findById(3).get();
-      competitor = groupDao.findById(7).get();
-      admin = groupDao.findById(8).get();
+      aktive = groupDao.findById(1L).get();
+      trainer = groupDao.findById(3L).get();
+      competitor = groupDao.findById(7L).get();
+      admin = groupDao.findById(8L).get();
       assertNotNull(aktive);
       assertNotNull(trainer);
       assertNotNull(competitor);
@@ -51,7 +51,7 @@ class LoadPersonsTest
    @Test
    void testLoadPerson1()
    {
-      Optional<Person> person1 = personDao.findById(1);
+      Optional<Person> person1 = personDao.findById(1L);
       assertTrue(person1.isPresent(), "Person with id=1 not found!");
       assertTrue(person1.get().isMember(trainer));
    }
@@ -70,7 +70,7 @@ class LoadPersonsTest
       p.setPrename("prename");
       p.setSurname("surname");
       p.setBirth(LocalDate.of(1981, 3, 3));
-      p.setGender(Gender.MALE);
+      p.setGender(Gender.MALE.getId());
       personDao.save(p);
       assertNotNull(p.getId());
       personDao.delete(p);

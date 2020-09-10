@@ -15,129 +15,126 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the person database table.
- * 
  */
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Person extends BaseEntity implements Serializable {
+public class Person extends BaseEntity implements Serializable
+{
+   public static final String SESSION_LOGIN = "SESSION_LOGIN_USER";
+   public static final String QUERY_FINDALL = "Person.findAll";
+   public static final String QUERY_FINDLOGIN = "Person.findLogin";
+   private static final long serialVersionUID = -8361264400619997123L;
+   @Basic
+   private LocalDate birth;
+   private String prename;
+   private String surname;
+   private String username;
+   private String password;
+   private Integer gender;
+   @ManyToMany
+   @JoinTable(name = "persongroup", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+   private List<GroupDef> groups;
 
-    public static final String SESSION_LOGIN = "SESSION_LOGIN_USER";
+   public Gender getGender()
+   {
+      if (gender == null) {
+         return null;
+      }
+      return Gender.valueOf(gender);
+   }
 
-    public static final String QUERY_FINDALL = "Person.findAll";
+   public LocalDate getBirth()
+   {
+      return birth;
+   }
 
-    public static final String QUERY_FINDLOGIN = "Person.findLogin";
+   public void setBirth(LocalDate birth)
+   {
+      this.birth = birth;
+   }
 
-    private static final long serialVersionUID = -8361264400619997123L;
+   public String getPrename()
+   {
+      return prename;
+   }
 
-    @Basic
-    private LocalDate birth;
+   public void setPrename(String prename)
+   {
+      this.prename = prename;
+   }
 
-    private String prename;
+   public String getSurname()
+   {
+      return surname;
+   }
 
-    private String surname;
+   public void setSurname(String surname)
+   {
+      this.surname = surname;
+   }
 
-    private String username;
+   public String getUsername()
+   {
+      return username;
+   }
 
-    private String password;
+   public void setUsername(String username)
+   {
+      this.username = username;
+   }
 
-    private Integer gender;
+   public String getPassword()
+   {
+      return password;
+   }
 
-    @ManyToMany
-    @JoinTable(name = "persongroup", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private List<GroupDef> groups;
+   public void setPassword(String password)
+   {
+      this.password = password;
+   }
 
-    public Gender getGender() {
-	if (gender == null) {
-	    return null;
-	}
-	return Gender.valueOf(gender);
-    }
+   public void setGender(Integer gender)
+   {
+      this.gender = gender;
+   }
 
-    public void setGender(Gender gender) {
-	if (gender == null) {
-	    this.gender = null;
-	} else {
-	    this.gender = gender.getId();
-	}
-    }
+   public boolean isMember(GroupDef group)
+   {
+      return groups != null && groups.contains(group);
+   }
 
-    public LocalDate getBirth() {
-	return birth;
-    }
+   @Override
+   public int hashCode()
+   {
+      final int prime = 59;
+      int result = super.hashCode();
+      result = prime * result;
+      return result;
+   }
 
-    public void setBirth(LocalDate birth) {
-	this.birth = birth;
-    }
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (!super.equals(obj))
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      Person other = (Person) obj;
+      if (surname == null) {
+         if (other.surname != null)
+            return false;
+      }
+      else if (!surname.equals(other.surname))
+         return false;
+      return true;
+   }
 
-    public String getPrename() {
-	return prename;
-    }
-
-    public void setPrename(String prename) {
-	this.prename = prename;
-    }
-
-    public String getSurname() {
-	return surname;
-    }
-
-    public void setSurname(String surname) {
-	this.surname = surname;
-    }
-
-    public String getUsername() {
-	return username;
-    }
-
-    public void setUsername(String username) {
-	this.username = username;
-    }
-
-    public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
-    }
-
-    public void setGender(Integer gender) {
-	this.gender = gender;
-    }
-
-    public boolean isMember(GroupDef group) {
-	return groups != null && groups.contains(group);
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 59;
-	int result = super.hashCode();
-	result = prime * result;
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (!super.equals(obj))
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Person other = (Person) obj;
-	if (surname == null) {
-	    if (other.surname != null)
-		return false;
-	} else if (!surname.equals(other.surname))
-	    return false;
-	return true;
-    }
-
-    @Override
-    public String toString() {
-	return "Person [id=" + getId() + ", prename=" + prename + ", surname=" + surname + "]";
-    }
-
+   @Override
+   public String toString()
+   {
+      return "Person [id=" + getId() + ", prename=" + prename + ", surname=" + surname + "]";
+   }
 }

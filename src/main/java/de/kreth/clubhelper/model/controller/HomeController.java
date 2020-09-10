@@ -20,7 +20,7 @@ public class HomeController
    @GetMapping
    public String index(Principal principal)
    {
-      return principal == null ? "null" : principal.getName();
+      return principal == null ? "Welcome to Clubhelper Rest" : "Welcome to Clubhelper Rest, " + principal.getName();
    }
 
    @GetMapping("/login")

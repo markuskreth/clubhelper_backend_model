@@ -1,15 +1,15 @@
-package de.kreth.clubhelperbackend.controller;
+package de.kreth.clubhelper.model.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kreth.clubhelper.model.dao.RelativeDao;
 import de.kreth.clubhelper.model.data.Relative;
-import de.kreth.clubhelperbackend.controller.abstr.AbstractController;
 
 @RestController
 @RequestMapping("/relative")
-public class RelativeController extends AbstractController<Relative> {
+public class RelativeController extends AbstractController<Relative, RelativeDao> {
 
 	@Autowired
 	public RelativeController() {

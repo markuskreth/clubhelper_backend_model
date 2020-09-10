@@ -53,16 +53,16 @@ class PersonControllerTest
       p1.setPrename("prename");
       p1.setSurname("surname");
       p1.setBirth(LocalDate.of(2000, 1, 1));
-      p1.setGender(Gender.MALE);
+      p1.setGender(Gender.MALE.getId());
       p2 = new Person();
       p2.setId(1);
       p2.setPrename("prename");
       p2.setSurname("surname");
       p2.setBirth(LocalDate.of(2000, 1, 1));
-      p2.setGender(Gender.MALE);
+      p2.setGender(Gender.MALE.getId());
       when(personDao.findAll()).thenReturn(Arrays.asList(p1, p2));
-      when(personDao.findById(1)).thenReturn(Optional.of(p1));
-      when(personDao.findById(2)).thenReturn(Optional.of(p2));
+      when(personDao.findById(1L)).thenReturn(Optional.of(p1));
+      when(personDao.findById(2L)).thenReturn(Optional.of(p2));
    }
 
    @Test
