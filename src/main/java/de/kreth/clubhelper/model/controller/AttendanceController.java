@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.kreth.clubhelper.model.dao.AttendanceDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.Attendance;
@@ -40,13 +37,6 @@ public class AttendanceController {
     @ResponseBody
     public List<Attendance> getAttendencesOn(@PathVariable("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date) {
 	List<Attendance> findByOnDate = attendanceDao.findByOnDate(date);
-	ObjectMapper mapper = new ObjectMapper();
-	try {
-	    String one = mapper.writeValueAsString(findByOnDate.get(0));
-	    System.out.println(one);
-	} catch (JsonProcessingException e) {
-	    e.printStackTrace();
-	}
 	return findByOnDate;
     }
 
