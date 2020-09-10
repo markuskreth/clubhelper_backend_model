@@ -1,6 +1,5 @@
 package de.kreth.clubhelper.model.data;
 
-
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -15,111 +14,80 @@ import javax.persistence.Table;
 @NamedQuery(name = "Pflicht.findAll", query = "SELECT p FROM Pflicht p")
 public class Pflicht extends BaseEntity implements Serializable, Comparable<Pflicht> {
 
-	private String name;
+    private static final long serialVersionUID = -5461809622545899132L;
 
-	private boolean fixed;
+    private String name;
 
-	private int ordered;
+    private boolean fixed;
 
-	private String comment;
+    private int ordered;
 
-	public Pflicht() {
-	}
+    private String comment;
 
-	public Pflicht(String name, boolean fixed, int ordered, String comment) {
-		this.name = name;
-		this.fixed = fixed;
-		this.ordered = ordered;
-		this.comment = comment;
-	}
+    public Pflicht() {
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Pflicht(String name, boolean fixed, int ordered, String comment) {
+	this.name = name;
+	this.fixed = fixed;
+	this.ordered = ordered;
+	this.comment = comment;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	public boolean isFixed() {
-		return fixed;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public void setFixed(boolean fixed) {
-		this.fixed = fixed;
-	}
+    public boolean isFixed() {
+	return fixed;
+    }
 
-	public int getOrdered() {
-		return ordered;
-	}
+    public void setFixed(boolean fixed) {
+	this.fixed = fixed;
+    }
 
-	public void setOrdered(int ordered) {
-		this.ordered = ordered;
-	}
+    public int getOrdered() {
+	return ordered;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public void setOrdered(int ordered) {
+	this.ordered = ordered;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public String getComment() {
+	return comment;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + (fixed ? 1231 : 1237);
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ordered;
-		return result;
-	}
+    public void setComment(String comment) {
+	this.comment = comment;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Pflicht other = (Pflicht) obj;
-		if (comment == null) {
-			if (other.comment != null) {
-				return false;
-			}
-		}
-		else if (!comment.equals(other.comment)) {
-			return false;
-		}
-		if (fixed != other.fixed) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		}
-		else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (ordered != other.ordered) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public int hashCode() {
+	final int prime = 71;
+	int result = super.hashCode();
+	result = prime * result;
+	return result;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	return super.equals(obj);
+    }
 
-	@Override
-	public int compareTo(Pflicht o) {
-		return Integer.compare(ordered, o.ordered);
-	}
+    @Override
+    public String toString() {
+	return name;
+    }
+
+    @Override
+    public int compareTo(Pflicht o) {
+	return Integer.compare(ordered, o.ordered);
+    }
 }

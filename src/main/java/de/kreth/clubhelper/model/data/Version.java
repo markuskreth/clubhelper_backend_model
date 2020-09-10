@@ -21,91 +21,92 @@ import javax.persistence.TemporalType;
 @NamedQuery(name = "Version.findAll", query = "SELECT v FROM Version v")
 public class Version implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	private int version;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deleted;
 
-	public int getId() {
-		return id;
+    private int version;
+
+    public int getId() {
+	return id;
+    }
+
+    public void setId(int id) {
+	this.id = id;
+    }
+
+    public Date getDeleted() {
+	return deleted;
+    }
+
+    public void setDeleted(Date deleted) {
+	this.deleted = deleted;
+    }
+
+    public int getVersion() {
+	return version;
+    }
+
+    public void setVersion(int version) {
+	this.version = version;
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
+	result = prime * result + id;
+	result = prime * result + version;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	if (obj == null) {
+	    return false;
 	}
-
-	public Date getDeleted() {
-		return deleted;
+	if (getClass() != obj.getClass()) {
+	    return false;
 	}
-
-	public void setDeleted(Date deleted) {
-		this.deleted = deleted;
+	Version other = (Version) obj;
+	if (deleted == null) {
+	    if (other.deleted != null) {
+		return false;
+	    }
+	} else if (!deleted.equals(other.deleted)) {
+	    return false;
 	}
-
-	public int getVersion() {
-		return version;
+	if (id != other.id) {
+	    return false;
 	}
-
-	public void setVersion(int version) {
-		this.version = version;
+	if (version != other.version) {
+	    return false;
 	}
+	return true;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
-		result = prime * result + id;
-		result = prime * result + version;
-		return result;
+    @Override
+    public String toString() {
+	StringBuilder stringBuilder = new StringBuilder();
+	stringBuilder.append("Version [id=");
+	stringBuilder.append(id);
+	stringBuilder.append(", version=");
+	stringBuilder.append(version);
+	if (deleted != null) {
+	    stringBuilder.append(", deleted=");
+	    stringBuilder.append(deleted);
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Version other = (Version) obj;
-		if (deleted == null) {
-			if (other.deleted != null) {
-				return false;
-			}
-		}
-		else if (!deleted.equals(other.deleted)) {
-			return false;
-		}
-		if (id != other.id) {
-			return false;
-		}
-		if (version != other.version) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("Version [id=");
-		stringBuilder.append(id);
-		stringBuilder.append(", version=");
-		stringBuilder.append(version);
-		if (deleted != null) {
-			stringBuilder.append(", deleted=");
-			stringBuilder.append(deleted);
-		}
-		stringBuilder.append("]");
-		return stringBuilder.toString();
-	}
+	stringBuilder.append("]");
+	return stringBuilder.toString();
+    }
 
 }
