@@ -1,7 +1,7 @@
 package de.kreth.clubhelperbackend.aspects;
 
 import java.lang.reflect.Modifier;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -51,7 +51,7 @@ public class DeletedStorageAspect {
 
 		String tableName = class1.getSimpleName();
 		long id = deleted.getId();
-		Date now = time.getNow();
+		LocalDateTime now = time.getNow();
 
 		DeletedEntry entry = new DeletedEntry();
 		entry.setTablename(tableName);

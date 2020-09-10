@@ -1,7 +1,7 @@
 package de.kreth.clubhelper.model.data;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public interface EntityAccessor {
 
@@ -9,8 +9,8 @@ public interface EntityAccessor {
 
 	boolean hasValidId();
 
-	void setChanged(Date changed);
+	void setChanged(LocalDateTime changed);
 
-	void setCreated(Date created);
+	void setCreated(LocalDateTime created);
 
 }

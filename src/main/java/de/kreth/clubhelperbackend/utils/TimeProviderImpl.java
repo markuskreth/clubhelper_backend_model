@@ -1,6 +1,6 @@
 package de.kreth.clubhelperbackend.utils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class TimeProviderImpl implements TimeProvider {
 
 	@Override
-	public Date getNow() {
-		return new Date();
+	public LocalDateTime getNow() {
+		return LocalDateTime.now();
 	}
 
 }

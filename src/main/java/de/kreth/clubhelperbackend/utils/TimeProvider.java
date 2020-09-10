@@ -1,7 +1,7 @@
 package de.kreth.clubhelperbackend.utils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public interface TimeProvider {
-	Date getNow();
+   LocalDateTime getNow();
 }

@@ -1,6 +1,6 @@
 package de.kreth.clubhelper.model.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class PersonController
          for (Adress a : adressController.getByParent(person)) {
             adressController.delete(a);
          }
-         person.setDeleted(new Date());
+         person.setDeleted(LocalDateTime.now());
          personDao.save(person);
       }
       return optional.orElseThrow(() -> new RuntimeException("Person not found by id=" + id));

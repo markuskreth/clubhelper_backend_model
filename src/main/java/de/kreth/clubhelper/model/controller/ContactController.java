@@ -1,6 +1,6 @@
 package de.kreth.clubhelper.model.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ContactController
 
    public void delete(Contact c)
    {
-      c.setDeleted(new Date());
+      c.setDeleted(LocalDateTime.now());
       contactDao.save(c);
    }
 }

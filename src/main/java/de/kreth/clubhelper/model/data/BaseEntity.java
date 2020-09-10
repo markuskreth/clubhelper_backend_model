@@ -1,13 +1,11 @@
 package de.kreth.clubhelper.model.data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public abstract class BaseEntity implements EntityAccessor
@@ -15,52 +13,40 @@ public abstract class BaseEntity implements EntityAccessor
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
-   @Temporal(TemporalType.TIMESTAMP)
-   private Date changed;
-   @Temporal(TemporalType.TIMESTAMP)
-   private Date created;
-   @Temporal(TemporalType.TIMESTAMP)
-   private Date deleted;
+   private LocalDateTime changed;
+   private LocalDateTime created;
+   private LocalDateTime deleted;
 
-   public Date getChanged()
+   public LocalDateTime getChanged()
    {
-      if (changed == null) {
-         return null;
-      }
-      return new Date(this.changed.getTime());
+      return this.changed;
    }
 
    @Override
-   public void setChanged(Date changed)
+   public void setChanged(LocalDateTime changed)
    {
-      this.changed = new Date(changed.getTime());
+      this.changed = changed;
    }
 
-   public Date getCreated()
+   public LocalDateTime getCreated()
    {
-      if (created == null) {
-         return null;
-      }
-      return new Date(this.created.getTime());
+      return created;
    }
 
    @Override
-   public void setCreated(Date created)
+   public void setCreated(LocalDateTime created)
    {
-      this.created = new Date(created.getTime());
+      this.created = created;
    }
 
-   public Date getDeleted()
+   public LocalDateTime getDeleted()
    {
-      if (deleted == null) {
-         return null;
-      }
-      return new Date(this.deleted.getTime());
+      return deleted;
    }
 
-   public void setDeleted(Date deleted)
+   public void setDeleted(LocalDateTime deleted)
    {
-      this.deleted = new Date(deleted.getTime());
+      this.deleted = deleted;
    }
 
    public boolean isDeleted() {

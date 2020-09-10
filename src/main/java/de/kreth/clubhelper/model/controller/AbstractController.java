@@ -3,6 +3,7 @@ package de.kreth.clubhelper.model.controller;
 import static de.kreth.clubhelperbackend.utils.BoolUtils.not;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -89,13 +90,13 @@ public abstract class AbstractController<T extends BaseEntity, D extends CrudRep
 	@PutMapping(value = "/{id}", produces = "application/json")
 	public T put(@PathVariable("id") long id, @RequestBody T toUpdate) {
 
-		Date now = new Date();
-		Date created = toUpdate.getCreated();
-		Date changed = null;
+	   LocalDateTime now = LocalDateTime.now();
+		LocalDateTime created = toUpdate.getCreated();
+		LocalDateTime changed = null;
 
 		if (toUpdate.getChanged() != null) {
 			changed = toUpdate.getChanged();
-			long minutes = MINUTES.between(created.toInstant(), changed.toInstant());
+			long minutes = MINUTES.between(created, changed);
 			if (minutes < 1) {
 				toUpdate.setChanged(now);
 			}
@@ -130,12 +131,11 @@ public abstract class AbstractController<T extends BaseEntity, D extends CrudRep
 			id = -1L;
 		}
 		toCreate.setId(id);
-		Date now = new Date();
+		LocalDateTime now = LocalDateTime.now();
 
 		toCreate.setChanged(now);
 
-		if (toCreate.getCreated() == null
-				|| toCreate.getCreated().getTime() == 0) {
+		if (toCreate.getCreated() == null) {
 			toCreate.setCreated(now);
 		}
 
