@@ -14,8 +14,8 @@
 	<groupId>de.kreth.clubhelper</groupId>
 	<artifactId>ClubhelperModel</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ClubhelperModel</name>
-	<description>Model for Clubhelper Projectds</description>
+	<name>clubhelper-model</name>
+	<description>Model for Clubhelper Projects</description>
 
 	<properties>
 		<java.version>8</java.version>
