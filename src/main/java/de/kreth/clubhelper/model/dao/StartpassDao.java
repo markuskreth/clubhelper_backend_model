@@ -4,6 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import de.kreth.clubhelper.model.data.Startpass;
 
-public interface StartpassDao extends CrudRepository<Startpass, Long>
-{
+public interface StartpassDao extends CrudRepository<Startpass, Long>, ClubhelperDao<Startpass> {
 }

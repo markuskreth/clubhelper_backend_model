@@ -69,6 +69,7 @@ public abstract class AbstractController<T extends BaseEntity, D extends CrudRep
     @GetMapping(value = "/for/{id}")
     public List<T> getByParentId(@PathVariable("id") long id) {
 	if (dao instanceof ClubhelperDao) {
+	    @SuppressWarnings("unchecked")
 	    ClubhelperDao<T> specialDao = (ClubhelperDao<T>) dao;
 	    return specialDao.findByPersonId(id);
 	}
@@ -80,6 +81,7 @@ public abstract class AbstractController<T extends BaseEntity, D extends CrudRep
     public List<T> getChangedSince(@PathVariable("changed") long changed) {
 
 	if (dao instanceof ClubhelperDao) {
+	    @SuppressWarnings("unchecked")
 	    ClubhelperDao<T> specialDao = (ClubhelperDao<T>) dao;
 	    return specialDao.findByChangedGreaterThan(new Date(changed));
 	}
