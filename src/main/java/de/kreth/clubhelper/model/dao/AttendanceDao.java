@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import de.kreth.clubhelper.model.data.Attendance;
 import de.kreth.clubhelper.model.data.Person;
 
-public interface AttendanceDao extends CrudRepository<Attendance, Long> {
+public interface AttendanceDao extends CrudRepository<Attendance, Long>, ClubhelperDao<Attendance> {
 
     List<Attendance> findByOnDate(LocalDate onDate);
 
@@ -18,6 +18,7 @@ public interface AttendanceDao extends CrudRepository<Attendance, Long> {
 
     Attendance findByPersonAndOnDate(Person person, Date onDate);
 
+    @Override
     List<Attendance> findByPersonId(long personId);
 
     List<Attendance> findByChangedGreaterThan(LocalDateTime date);

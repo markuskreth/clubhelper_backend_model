@@ -10,11 +10,11 @@ import de.kreth.clubhelper.model.data.Person;
 
 public interface AdressDao extends CrudRepository<Adress, Long>, ClubhelperDao<Adress> {
 
-	List<Adress> findByPerson(Person person);
+    List<Adress> findByPerson(Person person);
 
-   @Override
-   List<Adress> findByPersonId(long personId);
+    @Override
+    List<Adress> findByPersonId(long personId);
 
-   @Override
-   List<Adress> findByChangedGreaterThan(Date date);
+    @Override
+    List<Adress> findByChangedGreaterThan(Date date);
 }

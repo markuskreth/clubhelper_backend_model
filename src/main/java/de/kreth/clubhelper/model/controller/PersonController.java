@@ -21,46 +21,42 @@ import io.swagger.annotations.ApiOperation;
 @Controller
 @RequestMapping("/person")
 @PreAuthorize("isAuthenticated()")
-public class PersonController
-{
-   @Autowired
-   private PersonDao personDao;
-   
-   @Autowired
-   private ContactController contactController;
-   
-   @Autowired
-   private AdressController adressController;
+public class PersonController {
+    @Autowired
+    private PersonDao personDao;
 
-   @GetMapping
-   @PreAuthorize("hasAnyRole('trainer', 'admin')")
-   @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
-   public @ResponseBody Iterable<Person> getAll()
-   {
-      return personDao.findAll();
-   }
+    @Autowired
+    private ContactController contactController;
 
-   @GetMapping(value = "/{id}")
-   public @ResponseBody Optional<Person> getById(@PathVariable("id") final long id)
-   {
-      return personDao.findById(id);
-   }
+    @Autowired
+    private AdressController adressController;
 
-   @DeleteMapping(value = "/{id}")
-   public @ResponseBody Person delete(@PathVariable("id") final long id)
-   {
-      Optional<Person> optional = personDao.findById(id);
-      if (optional.isPresent()) {
-         Person person = optional.get();
-         for (Contact c : contactController.getByParent(person)) {
-            contactController.delete(c);
-         }
-         for (Adress a : adressController.getByParent(person)) {
-            adressController.delete(a);
-         }
-         person.setDeleted(LocalDateTime.now());
-         personDao.save(person);
-      }
-      return optional.orElseThrow(() -> new RuntimeException("Person not found by id=" + id));
-   }
+    @GetMapping
+    @PreAuthorize("hasAnyRole('trainer', 'admin')")
+    @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
+    public @ResponseBody Iterable<Person> getAll() {
+	return personDao.findAll();
+    }
+
+    @GetMapping(value = "/{id}")
+    public @ResponseBody Optional<Person> getById(@PathVariable("id") final long id) {
+	return personDao.findById(id);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public @ResponseBody Person delete(@PathVariable("id") final long id) {
+	Optional<Person> optional = personDao.findById(id);
+	if (optional.isPresent()) {
+	    Person person = optional.get();
+	    for (Contact c : contactController.getByParentId(person.getId())) {
+		contactController.delete(c.getId());
+	    }
+	    for (Adress a : adressController.getByParentId(person.getId())) {
+		adressController.delete(a.getId());
+	    }
+	    person.setDeleted(LocalDateTime.now());
+	    personDao.save(person);
+	}
+	return optional.orElseThrow(() -> new RuntimeException("Person not found by id=" + id));
+    }
 }
