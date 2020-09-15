@@ -11,7 +11,7 @@
 
 	<groupId>de.kreth.clubhelper</groupId>
 	<artifactId>ClubhelperModel</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>clubhelper-model</name>
 	<description>Model for Clubhelper Projects</description>
 
@@ -53,6 +53,13 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
+		</dependency>
+		<!--  Documentation -->
+		
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.4.6</version>
 		</dependency>
 <!-- 		<dependency> -->
 <!-- 			<groupId>io.springfox</groupId> -->
@@ -96,7 +103,6 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.libphonenumber</groupId>
