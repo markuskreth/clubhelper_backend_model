@@ -18,8 +18,7 @@
 	<properties>
 		<java.version>8</java.version>
 		<org.keycloak.version>11.0.1</org.keycloak.version>
-		<sonar.projectKey>cb326711c47c07bb48e5c6e4aa702806f23fa772
-		</sonar.projectKey>
+		<sonar.projectKey>cb326711c47c07bb48e5c6e4aa702806f23fa772</sonar.projectKey>
 	</properties>
 
 	<dependencies>
@@ -54,23 +53,19 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		
 		<!--  Documentation -->
 		
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.4.6</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>3.0.0</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>io.springfox</groupId> -->
-<!-- 			<artifactId>springfox-swagger2</artifactId> -->
-<!-- 			<version>2.9.2</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>io.springfox</groupId> -->
-<!-- 			<artifactId>springfox-swagger-ui</artifactId> -->
-<!-- 			<version>2.9.2</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
