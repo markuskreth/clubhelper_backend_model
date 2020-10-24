@@ -12,16 +12,18 @@ public class AbstractLoggerAspect {
     private final Map<Class<?>, Logger> loggerCache = new HashMap<>();
 
     public enum LogLevel {
-	WARN, DEBUG, INFO;
+	TRACE, DEBUG, INFO, WARN, ERROR;
 
 	boolean enabled(Logger logger) {
 	    switch (this) {
 	    case WARN:
 		return logger.isWarnEnabled();
-	    case DEBUG:
-		return logger.isDebugEnabled();
 	    case INFO:
 		return logger.isInfoEnabled();
+	    case DEBUG:
+		return logger.isDebugEnabled();
+	    case TRACE:
+		return logger.isTraceEnabled();
 
 	    default:
 		return true;
@@ -33,56 +35,68 @@ public class AbstractLoggerAspect {
 	log(level, joinPoint, null);
     }
 
-    protected void log(LogLevel level, JoinPoint joinPoint, Object result) {
+    protected synchronized void log(LogLevel level, JoinPoint joinPoint, Object relatedData) {
 
 	Logger logger = getLoggerFor(joinPoint);
 	if (level.enabled(logger)) {
 
-	    StringBuffer msg = generateLogMessage(joinPoint);
+	    StringBuilder msg = generateLogMessage(joinPoint);
 	    Exception exception = null;
 
-	    if (result != null) {
-		if (result instanceof Exception) {
-		    exception = (Exception) result;
+	    if (relatedData != null) {
+		if (relatedData instanceof Exception) {
+		    exception = (Exception) relatedData;
 		} else {
-		    msg.append(" ==> ").append(result);
+		    msg.append(" ==> ").append(relatedData);
 		}
 	    }
 
-	    switch (level) {
-	    case WARN:
-		if (exception == null) {
-		    logger.warn(msg.toString());
-		} else {
-		    logger.warn(msg.toString(), exception);
-		}
-		break;
-	    case DEBUG:
-		if (exception == null) {
-		    logger.debug(msg.toString());
-		} else {
-		    logger.debug(msg.toString(), exception);
-		}
-		break;
-	    case INFO:
-		if (exception == null) {
-		    logger.info(msg.toString());
-		} else {
-		    logger.info(msg.toString(), exception);
-		}
-		break;
-	    default:
-		if (exception == null) {
-		    logger.trace(msg.toString());
-		} else {
-		    logger.trace(msg.toString(), exception);
-		}
+	    log(level, logger, msg, exception);
+	}
+    }
+
+    private void log(LogLevel level, Logger logger, CharSequence msg, Exception exception) {
+	String logText = msg.toString();
+	switch (level) {
+	case ERROR:
+	    if (exception == null) {
+		logger.error(logText);
+	    } else {
+		logger.error(logText, exception);
+	    }
+	    break;
+	case WARN:
+	    if (exception == null) {
+		logger.warn(logText);
+	    } else {
+		logger.warn(logText, exception);
+	    }
+	    break;
+	case INFO:
+	    if (exception == null) {
+		logger.info(logText);
+	    } else {
+		logger.info(logText, exception);
+	    }
+	    break;
+	case DEBUG:
+	    if (exception == null) {
+		logger.debug(logText);
+	    } else {
+		logger.debug(logText, exception);
+	    }
+	    break;
+	default:
+	    if (exception == null) {
+		logger.trace(logText);
+	    } else {
+		logger.trace(logText, exception);
 	    }
 	}
     }
 
-    protected StringBuffer generateLogMessage(JoinPoint joinPoint) {
-	StringBuffer logMessage = new StringBuffer();
+    protected synchronized StringBuilder generateLogMessage(JoinPoint joinPoint) {
+	StringBuilder logMessage = new StringBuilder();
 	logMessage.append(joinPoint.getTarget().getClass().getName());
 	logMessage.append(".");
 	logMessage.append(joinPoint.getSignature().getName());

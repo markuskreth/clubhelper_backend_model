@@ -1,6 +1,7 @@
 package de.kreth.clubhelperbackend.aspects;
 
 import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.DEBUG;
+import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.ERROR;
 import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.INFO;
 import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.WARN;
 
@@ -35,7 +36,7 @@ public class ControllerLoggerAspect extends AbstractLoggerAspect {
 
     @AfterThrowing(pointcut = "invocation()", throwing = "ex")
     public void logCall(JoinPoint joinPoint, Exception ex) throws Throwable {
-	getLoggerFor(joinPoint).error(generateLogMessage(joinPoint).toString(), ex);
+	log(ERROR, joinPoint, ex);
     }
 
     @AfterReturning(pointcut = "invocation()", returning = "result")
