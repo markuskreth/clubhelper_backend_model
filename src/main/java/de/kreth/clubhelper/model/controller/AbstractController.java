@@ -34,13 +34,17 @@ public abstract class AbstractController<T extends BaseEntity, D extends CrudRep
 	implements
 	ClubController<T> {
 
-    @Autowired
     protected D dao;
     private Class<T> elementClass;
 
     protected AbstractController(Class<T> element) {
 	super();
 	this.elementClass = element;
+    }
+
+    @Autowired
+    public void setDao(D dao) {
+	this.dao = dao;
     }
 
     @Override
