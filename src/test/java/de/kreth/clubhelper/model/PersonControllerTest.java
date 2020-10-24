@@ -10,8 +10,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.keycloak.adapters.springboot.KeycloakAutoConfiguration;
+import org.keycloak.adapters.springboot.KeycloakBaseSpringBootConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.jdbc.JdbcRepositoriesAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -23,7 +24,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import de.kreth.clubhelper.model.dao.AdressDao;
+import de.kreth.clubhelper.model.dao.AttendanceDao;
+import de.kreth.clubhelper.model.dao.ContactDao;
+import de.kreth.clubhelper.model.dao.DeletedEntriesDao;
+import de.kreth.clubhelper.model.dao.GroupDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
+import de.kreth.clubhelper.model.dao.RelativeDao;
+import de.kreth.clubhelper.model.dao.StartpassDao;
 import de.kreth.clubhelper.model.data.Gender;
 import de.kreth.clubhelper.model.data.Person;
 
@@ -32,15 +40,31 @@ import de.kreth.clubhelper.model.data.Person;
 	JdbcRepositoriesAutoConfiguration.class,
 	DataSourceTransactionManagerAutoConfiguration.class,
 	JdbcTemplateAutoConfiguration.class,
-	SecurityAutoConfiguration.class
+	SecurityAutoConfiguration.class,
+	KeycloakAutoConfiguration.class,
+	KeycloakBaseSpringBootConfiguration.class
 })
-@Disabled
 class PersonControllerTest {
+
     @Autowired
     MockMvc mvc;
 
     @MockBean
     PersonDao personDao;
+    @MockBean
+    AdressDao adressDao;
+    @MockBean
+    AttendanceDao attendanceDao;
+    @MockBean
+    ContactDao contactDao;
+    @MockBean
+    DeletedEntriesDao deletedEntriesDao;
+    @MockBean
+    GroupDao groupDao;
+    @MockBean
+    RelativeDao relativeDao;
+    @MockBean
+    StartpassDao startpassDao;
 
     private Person p1;
     private Person p2;
@@ -66,7 +90,9 @@ class PersonControllerTest {
 
     @Test
     void callAllPersons() throws Exception {
-	String jsonListOfPersons = "[{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null,\"gender\":\"MALE\"},{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null,\"gender\":\"MALE\"}]";
+	String jsonListOfPersons = "["
+		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null,\"gender\":\"MALE\",\"groups\":null},"
+		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null,\"gender\":\"MALE\",\"groups\":null}]";
 	mvc.perform(get("/person").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
 		.andExpect(status().isOk())
 		.andExpect(content().string(jsonListOfPersons));
@@ -74,7 +100,7 @@ class PersonControllerTest {
 
     @Test
     void callPerson1() throws Exception {
-	String jsonListOfPersons = "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null,\"gender\":\"MALE\"}";
+	String jsonListOfPersons = "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null,\"gender\":\"MALE\",\"groups\":null}";
 	mvc.perform(get("/person/1").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
 		.andExpect(status().isOk())
 		.andExpect(content().string(jsonListOfPersons));
