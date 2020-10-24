@@ -21,38 +21,33 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @KeycloakConfiguration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class KeycloakSecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter
-{
-   @Autowired
-   public void configureGlobal(AuthenticationManagerBuilder auth)
-   {
-      KeycloakAuthenticationProvider keyCloakAuthProvider = keycloakAuthenticationProvider();
-      keyCloakAuthProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
-      auth.authenticationProvider(keyCloakAuthProvider);
-   }
+public class KeycloakSecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
+	KeycloakAuthenticationProvider keyCloakAuthProvider = keycloakAuthenticationProvider();
+	keyCloakAuthProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
+	auth.authenticationProvider(keyCloakAuthProvider);
+    }
 
-   @Bean
-   public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher()
-   {
-      return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
-   }
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+	return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+    }
 
-   @Bean
-   public KeycloakConfigResolver keyCloakConfigResolver()
-   {
-      return new KeycloakSpringBootConfigResolver();
-   }
+    @Bean
+    public KeycloakConfigResolver keyCloakConfigResolver() {
+	return new KeycloakSpringBootConfigResolver();
+    }
 
-   @Override
-   protected SessionAuthenticationStrategy sessionAuthenticationStrategy()
-   {
-      return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
-   }
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+	return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+    }
 
-   @Override
-   protected void configure(HttpSecurity http) throws Exception
-   {
-      super.configure(http);
-      http.authorizeRequests();
-   }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+	super.configure(http);
+	http.csrf().disable().authorizeRequests();
+    }
+
 }
