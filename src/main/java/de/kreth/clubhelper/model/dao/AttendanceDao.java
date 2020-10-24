@@ -2,7 +2,6 @@ package de.kreth.clubhelper.model.dao;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +15,7 @@ public interface AttendanceDao extends CrudRepository<Attendance, Long>, Clubhel
 
     List<Attendance> findByPerson(Person person);
 
-    Attendance findByPersonAndOnDate(Person person, Date onDate);
+    Attendance findByPersonAndOnDate(Person person, LocalDate onDate);
 
     @Override
     List<Attendance> findByPersonId(long personId);

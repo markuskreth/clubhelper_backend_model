@@ -1,7 +1,7 @@
 package de.kreth.clubhelper.model.controller;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +42,29 @@ public class AttendanceController {
 
     @PostMapping(value = "/for/{id}")
     @ResponseBody
-    public Attendance post(@PathVariable("id") Long id) {
+    public Attendance post(@PathVariable("id") Long id, @RequestBody(required = false) LocalDate onDate) {
 	Attendance att = new Attendance();
-	att.setOnDate(LocalDate.now());
+	if (onDate == null) {
+	    att.setOnDate(LocalDate.now());
+	} else {
+	    att.setOnDate(onDate);
+	}
 	att.setPerson(personDao.findById(id).orElseThrow(() -> new RuntimeException("Person not found by id=" + id)));
+	LocalDateTime now = LocalDateTime.now();
+	att.setChanged(now);
+	att.setCreated(now);
 	attendanceDao.save(att);
 	return att;
     }
 
-    @DeleteMapping("/{id}")
-    public Attendance delete(@PathVariable("id") Long personId, @RequestBody(required = true) Date onDate) {
+    @DeleteMapping("/{id}/{onDate}")
+    public void delete(@PathVariable("id") Long personId,
+	    @PathVariable("onDate") @DateTimeFormat(iso = ISO.DATE) LocalDate onDate) {
+
 	Person person = personDao.findById(personId)
 		.orElseThrow(() -> new RuntimeException("Person not found by id=" + personId));
 	Attendance attendance = attendanceDao.findByPersonAndOnDate(person, onDate);
+	attendance.setDeleted(LocalDateTime.now());
 	attendanceDao.delete(attendance);
-	return attendance;
     }
 }
