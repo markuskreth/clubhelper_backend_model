@@ -24,6 +24,12 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ConditionalOnProperty(value = "keycloak.enabled", matchIfMissing = true)
 public class KeycloakSecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+
+    // To Disable (Not working completely):
+//-Dkeycloak.enabled=false
+//-Dsecurity.basic.enabled=false
+//-Dmanagement.security.enabled=false
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
 	KeycloakAuthenticationProvider keyCloakAuthProvider = keycloakAuthenticationProvider();

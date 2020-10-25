@@ -40,6 +40,12 @@ public class AttendanceController {
 	return findByOnDate;
     }
 
+    @GetMapping(value = "/for/{personId}")
+    @ResponseBody
+    public List<Attendance> getAttendencesFor(@PathVariable("personId") Long personId) {
+	return attendanceDao.findByPersonId(personId);
+    }
+
     @PostMapping(value = "/for/{id}")
     @ResponseBody
     public Attendance post(@PathVariable("id") Long id, @RequestBody(required = false) LocalDate onDate) {
