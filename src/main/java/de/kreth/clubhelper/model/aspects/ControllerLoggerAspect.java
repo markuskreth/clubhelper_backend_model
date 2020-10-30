@@ -1,9 +1,9 @@
-package de.kreth.clubhelperbackend.aspects;
+package de.kreth.clubhelper.model.aspects;
 
-import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.DEBUG;
-import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.ERROR;
-import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.INFO;
-import static de.kreth.clubhelperbackend.aspects.AbstractLoggerAspect.LogLevel.WARN;
+import static de.kreth.clubhelper.model.aspects.AbstractLoggerAspect.LogLevel.DEBUG;
+import static de.kreth.clubhelper.model.aspects.AbstractLoggerAspect.LogLevel.ERROR;
+import static de.kreth.clubhelper.model.aspects.AbstractLoggerAspect.LogLevel.INFO;
+import static de.kreth.clubhelper.model.aspects.AbstractLoggerAspect.LogLevel.WARN;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class ControllerLoggerAspect extends AbstractLoggerAspect {
 
-    @Pointcut("execution (public * de.kreth.clubhelperbackend.controller..*.delete(..))")
+    @Pointcut("execution (public * de.kreth.clubhelper.model.controller..*.delete(..))")
     private void deleteItem() {
     }
 
-    @Pointcut("execution (public * de.kreth.clubhelperbackend.controller..*(..))")
+    @Pointcut("execution (public * de.kreth.clubhelper.model.controller..*(..))")
     private void callAny() {
     }
 

@@ -1,4 +1,4 @@
-package de.kreth.clubhelperbackend.aspects;
+package de.kreth.clubhelper.model.aspects;
 
 import java.util.HashMap;
 import java.util.Map;

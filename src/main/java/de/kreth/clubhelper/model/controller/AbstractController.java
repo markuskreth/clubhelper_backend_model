@@ -1,6 +1,6 @@
 package de.kreth.clubhelper.model.controller;
 
-import static de.kreth.clubhelperbackend.utils.BoolUtils.not;
+import static de.kreth.clubhelper.model.utils.BoolUtils.not;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 import java.time.LocalDateTime;

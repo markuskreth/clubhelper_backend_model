@@ -1,4 +1,4 @@
-package de.kreth.clubhelperbackend.utils;
+package de.kreth.clubhelper.model.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;

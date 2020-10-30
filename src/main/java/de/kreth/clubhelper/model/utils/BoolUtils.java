@@ -1,4 +1,4 @@
-package de.kreth.clubhelperbackend.utils;
+package de.kreth.clubhelper.model.utils;
 
 public class BoolUtils {
 	private BoolUtils() {
