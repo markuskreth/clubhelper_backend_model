@@ -24,7 +24,7 @@ import de.kreth.clubhelper.model.data.Person;
 
 @Controller
 @RequestMapping("/attendance")
-@PreAuthorize("hasRole('trainer') or hasRole('admin')")
+@PreAuthorize("hasRole('ROLE_trainer')")
 public class AttendanceController {
 
     @Autowired
