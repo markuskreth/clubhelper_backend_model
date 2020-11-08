@@ -28,8 +28,7 @@ public class Person extends BaseEntity implements Serializable {
     private LocalDate birth;
     private String prename;
     private String surname;
-    private String username;
-    private String password;
+
     private Integer gender;
     @ManyToMany
     @JoinTable(name = "persongroup", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
@@ -64,22 +63,6 @@ public class Person extends BaseEntity implements Serializable {
 
     public void setSurname(String surname) {
 	this.surname = surname;
-    }
-
-    public String getUsername() {
-	return username;
-    }
-
-    public void setUsername(String username) {
-	this.username = username;
-    }
-
-    public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
     }
 
     public void setGender(Integer gender) {
