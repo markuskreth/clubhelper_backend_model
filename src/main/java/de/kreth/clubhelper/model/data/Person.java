@@ -2,6 +2,7 @@ package de.kreth.clubhelper.model.data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -74,6 +75,9 @@ public class Person extends BaseEntity implements Serializable {
     }
 
     public List<GroupDef> getGroups() {
+	if (groups == null) {
+	    groups = new ArrayList<>();
+	}
 	return groups;
     }
 
