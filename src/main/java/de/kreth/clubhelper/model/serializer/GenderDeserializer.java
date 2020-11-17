@@ -21,15 +21,17 @@ public class GenderDeserializer extends JsonDeserializer<Gender> {
 	    throws IOException, JsonProcessingException {
 
 	TreeNode treeNode = jsonParser.getCodec().readTree(jsonParser);
-	TextNode gender = (TextNode) treeNode.get("gender");
-	Gender result;
-
-	if (gender.canConvertToInt()) {
-	    result = Gender.valueOf(gender.asInt());
+	TextNode gender;
+	if (treeNode instanceof TextNode) {
+	    gender = ((TextNode) treeNode);
 	} else {
-	    result = Gender.valueOf(gender.asText());
+	    gender = (TextNode) treeNode.get("gender");
 	}
-	return result;
+	String asText = gender.asText();
+	if ("null".equals(asText)) {
+	    return null;
+	}
+	return Gender.valueOf(asText);
     }
 
 }

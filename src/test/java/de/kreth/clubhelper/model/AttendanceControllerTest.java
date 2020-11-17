@@ -54,14 +54,21 @@ class AttendanceControllerTest {
     void initTestData() {
 	onDate = LocalDate.of(2020, 10, 10);
 
-	attendance = new Attendance();
+//	LocalDateTime created = LocalDateTime.of(2020, 10, 10, 18, 15, 15);
 	person = new Person();
 	person.setId(1);
 	person.setPrename("prename");
 	person.setSurname("surname");
+//	person.setCreated(created);
+//	person.setChanged(created);
+
+	attendance = new Attendance();
 	attendance.setPerson(person);
 	attendance.setId(1);
 	attendance.setOnDate(onDate);
+//	attendance.setChanged(created);
+//	attendance.setCreated(created);
+
     }
 
     @Test
@@ -85,15 +92,17 @@ class AttendanceControllerTest {
 
 	List<Attendance> asList = new ArrayList<>();
 	asList.add(attendance);
+
 	when(attendanceDao.findByOnDate(onDate)).thenReturn(asList);
+
 	mvc.perform(get("/attendance/" + onDate.format(DateTimeFormatter.ISO_DATE)))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(ContentType.APPLICATION_JSON.getMimeType()))
 		.andExpect(content().json(
 			"[{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"onDate\":\"2020-10-10\""
 				+ ",\"person\":{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":null"
-				+ ",\"prename\":\"prename\",\"surname\":\"surname\",\"username\":null,\"password\":null"
-				+ ",\"gender\":null,\"groups\":null}}]"));
+				+ ",\"prename\":\"prename\",\"surname\":\"surname\""
+				+ ",\"gender\":null,\"groups\":[]}}]"));
     }
 
     @Test

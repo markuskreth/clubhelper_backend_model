@@ -28,11 +28,13 @@ public class PersonController {
 
     private PersonDao personDao;
 
-    public void setPersonDao(@Autowired PersonDao personDao) {
+    @Autowired
+    public void setPersonDao(PersonDao personDao) {
 	this.personDao = personDao;
     }
 
-    public void setLocalDateTimeProvider(@Autowired LocalDateTimeProvider localDateTimeProvider) {
+    @Autowired
+    public void setLocalDateTimeProvider(LocalDateTimeProvider localDateTimeProvider) {
 	this.localDateTimeProvider = localDateTimeProvider;
     }
 

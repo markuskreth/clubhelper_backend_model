@@ -21,58 +21,53 @@ import de.kreth.clubhelper.model.data.Person;
 @DataJpaTest()
 //@Sql(scripts = "classpath:data.sql")
 @TestPropertySource(properties = {
-        "spring.jpa.hibernate.ddl-auto=none"
+	"spring.jpa.hibernate.ddl-auto=none"
 })
-class LoadPersonsTest
-{
-   @Autowired
-   PersonDao personDao;
-   @Autowired
-   GroupDao groupDao;
-   
-   private GroupDef aktive;
-   private GroupDef trainer;
-   private GroupDef competitor;
-   private GroupDef admin;
+class LoadPersonsTest {
+    @Autowired
+    PersonDao personDao;
+    @Autowired
+    GroupDao groupDao;
 
-   @BeforeEach
-   void loadGroups()
-   {
-      aktive = groupDao.findById(1L).get();
-      trainer = groupDao.findById(3L).get();
-      competitor = groupDao.findById(7L).get();
-      admin = groupDao.findById(8L).get();
-      assertNotNull(aktive);
-      assertNotNull(trainer);
-      assertNotNull(competitor);
-      assertNotNull(admin);
-   }
+    private GroupDef aktive;
+    private GroupDef trainer;
+    private GroupDef competitor;
+    private GroupDef admin;
 
-   @Test
-   void testLoadPerson1()
-   {
-      Optional<Person> person1 = personDao.findById(1L);
-      assertTrue(person1.isPresent(), "Person with id=1 not found!");
-      assertTrue(person1.get().isMember(trainer));
-   }
+    @BeforeEach
+    void loadGroups() {
+	aktive = groupDao.findById(1L).get();
+	trainer = groupDao.findById(3L).get();
+	competitor = groupDao.findById(7L).get();
+	admin = groupDao.findById(8L).get();
+	assertNotNull(aktive);
+	assertNotNull(trainer);
+	assertNotNull(competitor);
+	assertNotNull(admin);
+    }
 
-   @Test
-   void testLoadAll()
-   {
-      Iterable<Person> all = personDao.findAll();
-      assertTrue(all.iterator().hasNext(), "No data found in Person");
-   }
+    @Test
+    void testLoadPerson1() {
+	Optional<Person> person1 = personDao.findById(1L);
+	assertTrue(person1.isPresent(), "Person with id=1 not found!");
+	assertTrue(person1.get().isMember(trainer));
+    }
 
-   @Test
-   void insertPerson()
-   {
-      Person p = new Person();
-      p.setPrename("prename");
-      p.setSurname("surname");
-      p.setBirth(LocalDate.of(1981, 3, 3));
-      p.setGender(Gender.MALE.getId());
-      personDao.save(p);
-      assertNotNull(p.getId());
-      personDao.delete(p);
-   }
+    @Test
+    void testLoadAll() {
+	Iterable<Person> all = personDao.findAll();
+	assertTrue(all.iterator().hasNext(), "No data found in Person");
+    }
+
+    @Test
+    void insertPerson() {
+	Person p = new Person();
+	p.setPrename("prename");
+	p.setSurname("surname");
+	p.setBirth(LocalDate.of(1981, 3, 3));
+	p.setGender(Gender.MALE);
+	personDao.save(p);
+	assertNotNull(p.getId());
+	personDao.delete(p);
+    }
 }

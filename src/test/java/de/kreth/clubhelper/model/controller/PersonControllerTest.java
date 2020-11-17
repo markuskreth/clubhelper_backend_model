@@ -62,7 +62,7 @@ public class PersonControllerTest {
 
 	person = new Person();
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE.getId());
+	person.setGender(Gender.FEMALE);
 	person.setPrename("prename");
 	person.setSurname("surname");
 	person.setChanged(now);

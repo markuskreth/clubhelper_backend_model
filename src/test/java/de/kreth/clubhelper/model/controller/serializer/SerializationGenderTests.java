@@ -1,6 +1,8 @@
 package de.kreth.clubhelper.model.controller.serializer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +30,7 @@ public class SerializationGenderTests {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE.getId());
+	person.setGender(Gender.FEMALE);
 	person.setCreated(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
 	person.setChanged(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
     }
@@ -40,8 +42,8 @@ public class SerializationGenderTests {
 	int indexOfGender = personJson.indexOf("gender");
 	indexOfGender = personJson.indexOf(":", indexOfGender + 1);
 	indexOfGender++;
-	String genderValue = personJson.substring(indexOfGender, indexOfGender + 1);
-	assertEquals("2", genderValue);
+	String genderValue = personJson.substring(indexOfGender);
+	assertTrue(genderValue.startsWith("\"FEMALE\""), "Gender not serialized: " + genderValue);
     }
 
     @Test
@@ -54,11 +56,43 @@ public class SerializationGenderTests {
 		"	\"birth\": \"2000-01-01\",\n" +
 		"	\"prename\": \"Vorname\",\n" +
 		"	\"surname\": \"Nachname\",\n" +
-		"	\"gender\": 2,\n" +
+		"	\"gender\": \"FEMALE\",\n" +
 		"	\"groups\": null\n" +
 		"}";
+
 	Person p = objectMapper.readValue(json, Person.class);
 
 	assertEquals(Gender.FEMALE, p.getGender());
+    }
+
+    @Test
+    void serializeNull() throws Exception {
+	person.setGender(null);
+	String personJson = objectMapper.writeValueAsString(person);
+
+	int indexOfGender = personJson.indexOf("gender");
+	indexOfGender = personJson.indexOf(":", indexOfGender + 1);
+	indexOfGender++;
+	String genderValue = personJson.substring(indexOfGender);
+	assertTrue(genderValue.startsWith("null"), "Gender not serialized: " + genderValue);
+    }
+
+    @Test
+    void deserializeNull() throws Exception {
+	String json = "{\n" +
+		"	\"id\": 0,\n" +
+		"	\"changed\": \"2020-10-10T10:10:10\",\n" +
+		"	\"created\": \"2020-10-10T10:10:10\",\n" +
+		"	\"deleted\": null,\n" +
+		"	\"birth\": \"2000-01-01\",\n" +
+		"	\"prename\": \"Vorname\",\n" +
+		"	\"surname\": \"Nachname\",\n" +
+		"	\"gender\": \"null\",\n" +
+		"	\"groups\": null\n" +
+		"}";
+
+	Person p = objectMapper.readValue(json, Person.class);
+
+	assertNull(p.getGender());
     }
 }

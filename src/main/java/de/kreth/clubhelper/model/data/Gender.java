@@ -15,7 +15,11 @@ public enum Gender {
     }
 
     public static Gender valueOf(Integer id) {
-	return valueOf(id.intValue());
+	if (id != null) {
+	    return valueOf(id.intValue());
+	} else {
+	    return null;
+	}
     }
 
     public static Gender valueOf(int id) {
@@ -35,7 +39,6 @@ public enum Gender {
 	    return "Männlich";
 	default:
 	    break;
-
 	}
 	throw new IllegalStateException("No localized String for " + this);
     }

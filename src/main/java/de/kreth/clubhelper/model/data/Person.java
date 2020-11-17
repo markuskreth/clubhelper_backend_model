@@ -36,9 +36,6 @@ public class Person extends BaseEntity implements Serializable {
     private List<GroupDef> groups;
 
     public Gender getGender() {
-	if (gender == null) {
-	    return null;
-	}
 	return Gender.valueOf(gender);
     }
 
@@ -66,8 +63,12 @@ public class Person extends BaseEntity implements Serializable {
 	this.surname = surname;
     }
 
-    public void setGender(Integer gender) {
-	this.gender = gender;
+    public void setGender(Gender gender) {
+	if (gender != null) {
+	    this.gender = gender.getId();
+	} else {
+	    this.gender = null;
+	}
     }
 
     public boolean isMember(GroupDef group) {

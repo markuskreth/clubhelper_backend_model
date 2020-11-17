@@ -15,7 +15,7 @@ public class GenderSerializer extends JsonSerializer<Gender> {
 
     @Override
     public void serialize(Gender value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-	gen.writeNumber(value.getId());
+	gen.writeString(value.name());
     }
 
 }
