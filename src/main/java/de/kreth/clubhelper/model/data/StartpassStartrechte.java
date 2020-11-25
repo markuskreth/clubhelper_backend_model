@@ -9,7 +9,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,8 +20,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "startpass_startrechte")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "StartpassStartrechte.findAll", query = "SELECT s FROM StartpassStartrechte s")
 public class StartpassStartrechte extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = -2093629121995635551L;
 
     private String fachgebiet;
 

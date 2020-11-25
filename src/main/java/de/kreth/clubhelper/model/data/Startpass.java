@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,7 +20,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "startpaesse")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "Startpass.findAll", query = "SELECT s FROM Startpass s")
 public class Startpass extends BaseEntity implements Serializable, PersonRelated {
 
     private static final long serialVersionUID = 1L;

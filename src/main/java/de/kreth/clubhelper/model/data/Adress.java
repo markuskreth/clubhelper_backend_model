@@ -7,7 +7,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "adress")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "Adress.findAll", query = "SELECT a FROM Adress a")
 public class Adress extends BaseEntity implements Serializable, PersonRelated {
 
     private static final long serialVersionUID = 8216273166570667412L;

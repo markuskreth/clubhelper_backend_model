@@ -5,15 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "notes")
-@NamedQuery(name = PersonNote.QUERY_FINDALL, query = "SELECT n FROM PersonNote n")
 public class PersonNote implements PersonRelated {
-
-    public static final String QUERY_FINDALL = "PersonNote.findAll";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

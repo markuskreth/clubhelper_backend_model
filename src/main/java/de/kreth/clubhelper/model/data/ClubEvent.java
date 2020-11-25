@@ -11,7 +11,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,7 +27,6 @@ import de.kreth.clubhelper.model.data.CompetitionType.Type;
 @Entity
 @Table(name = "clubevent")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "ClubEvent.findAll", query = "SELECT c FROM ClubEvent c")
 public class ClubEvent extends BaseEntity implements EntityAccessor {
 
     private String caption;
@@ -163,6 +161,7 @@ public class ClubEvent extends BaseEntity implements EntityAccessor {
 	this.competitionType = competitionType;
     }
 
+    @Override
     public boolean isDeleted() {
 	return deleted;
     }

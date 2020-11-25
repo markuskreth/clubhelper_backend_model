@@ -9,13 +9,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "altersgruppe")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedQuery(name = "Altersgruppe.findAll", query = "SELECT a FROM Altersgruppe a")
 public class Altersgruppe extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 126215772910869273L;

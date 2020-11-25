@@ -21,10 +21,9 @@ import javax.persistence.Table;
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Person extends BaseEntity implements Serializable {
-    public static final String SESSION_LOGIN = "SESSION_LOGIN_USER";
-    public static final String QUERY_FINDALL = "Person.findAll";
-    public static final String QUERY_FINDLOGIN = "Person.findLogin";
+
     private static final long serialVersionUID = -8361264400619997123L;
+
     @Basic
     private LocalDate birth;
     private String prename;
