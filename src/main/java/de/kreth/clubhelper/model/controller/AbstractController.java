@@ -75,7 +75,8 @@ public abstract class AbstractController<T extends BaseEntity, D extends CrudRep
 	if (dao instanceof ClubhelperDao) {
 	    @SuppressWarnings("unchecked")
 	    ClubhelperDao<T> specialDao = (ClubhelperDao<T>) dao;
-	    return specialDao.findByPersonId(id);
+	    List<T> findByPersonId = specialDao.findByPersonId(id);
+	    return findByPersonId;
 	}
 	return Collections.emptyList();
     }

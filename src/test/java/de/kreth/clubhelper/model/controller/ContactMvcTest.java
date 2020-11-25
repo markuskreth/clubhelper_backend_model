@@ -1,16 +1,20 @@
-package de.kreth.clubhelper.model;
+package de.kreth.clubhelper.model.controller;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.StringWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.keycloak.adapters.springboot.KeycloakAutoConfiguration;
 import org.keycloak.adapters.springboot.KeycloakBaseSpringBootConfiguration;
@@ -25,9 +29,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
-import de.kreth.clubhelper.model.controller.PersonController;
+import de.kreth.clubhelper.model.dao.ContactDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
+import de.kreth.clubhelper.model.data.Contact;
 import de.kreth.clubhelper.model.data.Gender;
 import de.kreth.clubhelper.model.data.Person;
 
@@ -39,14 +46,20 @@ import de.kreth.clubhelper.model.data.Person;
 	SecurityAutoConfiguration.class,
 	KeycloakAutoConfiguration.class,
 	KeycloakBaseSpringBootConfiguration.class
-}, controllers = { PersonController.class })
-class PersonControllerTest {
+}, controllers = { ContactController.class })
+class ContactMvcTest {
 
     @MockBean(name = "personDao")
     PersonDao personDao;
 
+    @MockBean(name = "contactDao")
+    ContactDao contactDao;
+
     @MockBean
     LocalDateTimeProvider localDateTimeProvider;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Autowired
     MockMvc mvc;
@@ -55,6 +68,10 @@ class PersonControllerTest {
 
     private Person p1;
     private Person p2;
+    private Contact p1c1;
+    private Contact p1c2;
+    private Contact p2c1;
+    private Contact p2c2;
 
     private Person deleted;
 
@@ -69,11 +86,35 @@ class PersonControllerTest {
 	p1.setGender(Gender.MALE);
 
 	p2 = new Person();
-	p2.setId(1);
+	p2.setId(2);
 	p2.setPrename("prename");
 	p2.setSurname("surname");
 	p2.setBirth(LocalDate.of(2000, 1, 1));
 	p2.setGender(Gender.MALE);
+
+	p1c1 = new Contact();
+	p1c1.setId(1);
+	p1c1.setPerson(p1);
+	p1c1.setType(Contact.Type.EMAIL.getName());
+	p1c1.setValue("p1@test.de");
+
+	p1c2 = new Contact();
+	p1c2.setId(2);
+	p1c2.setPerson(p1);
+	p1c2.setType(Contact.Type.MOBILE.getName());
+	p1c2.setValue("015555666655");
+
+	p2c1 = new Contact();
+	p2c1.setId(3);
+	p2c1.setPerson(p2);
+	p2c1.setType(Contact.Type.EMAIL.getName());
+	p2c1.setValue("p2@test.de");
+
+	p2c2 = new Contact();
+	p2c2.setId(4);
+	p2c2.setPerson(p2);
+	p2c2.setType(Contact.Type.MOBILE.getName());
+	p2c2.setValue("015555666677");
 
 	deleted = new Person();
 	deleted.setId(1);
@@ -89,22 +130,28 @@ class PersonControllerTest {
 	when(personDao.findByDeletedIsNull()).thenReturn(Arrays.asList(p1, p2));
 	when(personDao.findById(1L)).thenReturn(Optional.of(p1));
 	when(personDao.findById(2L)).thenReturn(Optional.of(p2));
+
+	when(contactDao.findByPersonId(eq(1L))).thenReturn(Arrays.asList(p1c1, p1c2));
+	when(contactDao.findByPersonId(eq(2L))).thenReturn(Arrays.asList(p2c1, p2c2));
+
     }
 
     @Test
-    void callAllPersons() throws Exception {
-	String jsonListOfPersons = "["
-		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"gender\":\"MALE\",\"groups\":[]},"
-		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"gender\":\"MALE\",\"groups\":[]}]";
-	mvc.perform(get("/person").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
+    void getContactsForP1() throws Exception {
+	StringWriter w = new StringWriter();
+	objectMapper.writeValue(w, Arrays.asList(p1c1, p1c2));
+
+	String jsonListOfPersons = w.toString();
+	mvc.perform(get("/contact/for/1").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
 		.andExpect(status().isOk())
 		.andExpect(content().string(jsonListOfPersons));
     }
 
     @Test
-    void callPerson1() throws Exception {
+    @Disabled
+    void createContact() throws Exception {
 	String jsonListOfPersons = "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"gender\":\"MALE\",\"groups\":[]}";
-	mvc.perform(get("/person/1").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
+	mvc.perform(post("/contact/for/1").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
 		.andExpect(status().isOk())
 		.andExpect(content().string(jsonListOfPersons));
     }

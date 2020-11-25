@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "attendance")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Attendance extends BaseEntity implements Serializable {
+public class Attendance extends BaseEntity implements Serializable, PersonRelated {
 
     private static final long serialVersionUID = 2385033161272078335L;
 
@@ -30,10 +30,12 @@ public class Attendance extends BaseEntity implements Serializable {
 	return this.onDate;
     }
 
+    @Override
     public Person getPerson() {
 	return person;
     }
 
+    @Override
     public void setPerson(Person person) {
 	this.person = person;
     }

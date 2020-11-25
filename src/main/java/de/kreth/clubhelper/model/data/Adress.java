@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "adress")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQuery(name = "Adress.findAll", query = "SELECT a FROM Adress a")
-public class Adress extends BaseEntity implements Serializable {
+public class Adress extends BaseEntity implements Serializable, PersonRelated {
 
     private static final long serialVersionUID = 8216273166570667412L;
 
@@ -64,6 +64,16 @@ public class Adress extends BaseEntity implements Serializable {
 
     public void setPlz(String plz) {
 	this.plz = plz;
+    }
+
+    @Override
+    public Person getPerson() {
+	return person;
+    }
+
+    @Override
+    public void setPerson(Person person) {
+	this.person = person;
     }
 
     @Override

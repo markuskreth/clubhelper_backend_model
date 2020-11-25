@@ -14,84 +14,74 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "contact")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Contact extends BaseEntity implements Serializable
-{
-   private static final long serialVersionUID = -7631864028095077913L;
-   
-   public enum Type
-   {
-      PHONE("Telefon"),
-      MOBILE("Mobile"),
-      EMAIL("Email");
-      private final String name;
+public class Contact extends BaseEntity implements Serializable, PersonRelated {
+    private static final long serialVersionUID = -7631864028095077913L;
 
-      private Type(String name)
-      {
-         this.name = name;
-      }
+    public enum Type {
+	PHONE("Telefon"),
+	MOBILE("Mobile"),
+	EMAIL("Email");
 
-      public String getName()
-      {
-         return name;
-      }
-   }
-   
-   private String type;
-   private String value;
-   // bi-directional many-to-one association to Person
-   @ManyToOne
-   private Person person;
+	private final String name;
 
-   public String getType()
-   {
-      return type;
-   }
+	private Type(String name) {
+	    this.name = name;
+	}
 
-   public void setType(String type)
-   {
-      this.type = type;
-   }
+	public String getName() {
+	    return name;
+	}
+    }
 
-   public String getValue()
-   {
-      return value;
-   }
+    private String type;
+    private String value;
+    // bi-directional many-to-one association to Person
+    @ManyToOne
+    private Person person;
 
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
+    public String getType() {
+	return type;
+    }
 
-   public Person getPerson()
-   {
-      return person;
-   }
+    public void setType(String type) {
+	this.type = type;
+    }
 
-   public void setPerson(Person person)
-   {
-      this.person = person;
-   }
+    public String getValue() {
+	return value;
+    }
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 37;
-      int result = super.hashCode();
-      result = prime * result;
-      return result;
-   }
+    public void setValue(String value) {
+	this.value = value;
+    }
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-         return true;
-      return super.equals(obj);
-   }
+    @Override
+    public Person getPerson() {
+	return person;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "Contact [type=" + type + ", value=" + value + "]";
-   }
+    @Override
+    public void setPerson(Person person) {
+	this.person = person;
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 37;
+	int result = super.hashCode();
+	result = prime * result;
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+	return "Contact [type=" + type + ", value=" + value + "]";
+    }
 }

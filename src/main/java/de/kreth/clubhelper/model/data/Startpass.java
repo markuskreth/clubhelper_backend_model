@@ -22,7 +22,9 @@ import javax.persistence.Table;
 @Table(name = "startpaesse")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQuery(name = "Startpass.findAll", query = "SELECT s FROM Startpass s")
-public class Startpass extends BaseEntity implements Serializable {
+public class Startpass extends BaseEntity implements Serializable, PersonRelated {
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "startpass_nr")
     private String startpassNr;
@@ -63,10 +65,12 @@ public class Startpass extends BaseEntity implements Serializable {
 	this.startpassNr = startpassNr;
     }
 
+    @Override
     public Person getPerson() {
 	return person;
     }
 
+    @Override
     public void setPerson(Person person) {
 	this.person = person;
     }
