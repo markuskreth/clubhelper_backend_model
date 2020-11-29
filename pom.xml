@@ -104,6 +104,11 @@
 			<artifactId>libphonenumber</artifactId>
 			<version>8.11.0</version>
 		</dependency>
+		<dependency>
+			<groupId>de.kreth.clubhelper</groupId>
+			<artifactId>clubhelper-data</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
