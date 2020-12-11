@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.data.Person;
 
 @Repository
 public interface PersonDao extends CrudRepository<Person, Long> {

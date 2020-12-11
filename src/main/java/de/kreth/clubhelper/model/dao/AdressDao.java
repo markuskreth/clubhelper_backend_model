@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.kreth.clubhelper.model.data.Adress;
-import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.data.Adress;
+import de.kreth.clubhelper.data.Person;
 
 public interface AdressDao extends CrudRepository<Adress, Long>, ClubhelperDao<Adress> {
 

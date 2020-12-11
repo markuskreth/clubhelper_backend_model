@@ -43,10 +43,16 @@ public class StartpassStartrechte extends BaseEntity implements Serializable {
     private Startpass startpaesse;
 
     public Date getStartrechtBeginn() {
+	if (this.startrechtBeginn == null) {
+	    return null;
+	}
 	return new Date(this.startrechtBeginn.getTime());
     }
 
     public Date getStartrechtEnde() {
+	if (this.startrechtEnde == null) {
+	    return null;
+	}
 	return new Date(this.startrechtEnde.getTime());
     }
 

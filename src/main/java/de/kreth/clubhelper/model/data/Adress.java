@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the adress database table.
  * 
@@ -30,6 +32,7 @@ public class Adress extends BaseEntity implements Serializable, PersonRelated {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
+    @JsonIgnore
     private Person person;
 
     public String getAdress1() {

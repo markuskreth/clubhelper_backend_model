@@ -28,11 +28,18 @@ public class CompetitionType implements Serializable {
     private ClubEvent clubEvent;
 
     public Type getType() {
+	if (type == null) {
+	    return null;
+	}
 	return Type.valueOf(type);
     }
 
     public void setType(Type type) {
-	this.type = type.name();
+	if (type != null) {
+	    this.type = type.name();
+	} else {
+	    type = null;
+	}
     }
 
     public void setClubEvent(ClubEvent clubEvent) {

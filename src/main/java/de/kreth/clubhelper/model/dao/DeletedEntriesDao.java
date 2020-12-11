@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.kreth.clubhelper.model.data.DeletedEntry;
+import de.kreth.clubhelper.data.DeletedEntry;
 
 public interface DeletedEntriesDao extends CrudRepository<DeletedEntry, Long>
 {

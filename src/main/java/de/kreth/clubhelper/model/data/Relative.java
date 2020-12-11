@@ -10,6 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import de.kreth.clubhelper.data.BaseEntity;
+import de.kreth.clubhelper.data.Person;
+import de.kreth.clubhelper.data.Relation;
+
 /**
  * The persistent class for the relative database table.
  */

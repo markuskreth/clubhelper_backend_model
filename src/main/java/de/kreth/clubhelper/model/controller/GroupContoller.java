@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import de.kreth.clubhelper.data.GroupDef;
 import de.kreth.clubhelper.model.dao.GroupDao;
-import de.kreth.clubhelper.model.data.GroupDef;
 
 @RestController
 @RequestMapping("/group")

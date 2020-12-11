@@ -1,6 +1,5 @@
 package de.kreth.clubhelper.model.data;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Person extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = -8361264400619997123L;
+public class Person extends BaseEntity {
 
     @Basic
     private LocalDate birth;
@@ -109,5 +106,19 @@ public class Person extends BaseEntity implements Serializable {
     @Override
     public String toString() {
 	return "Person [id=" + getId() + ", prename=" + prename + ", surname=" + surname + "]";
+    }
+
+    public de.kreth.clubhelper.data.Person toSerializable() {
+	de.kreth.clubhelper.data.Person serializable = new de.kreth.clubhelper.data.Person();
+	serializable.setId(getId());
+	serializable.setPrename(prename);
+	serializable.setSurname(surname);
+	serializable.setBirth(birth);
+	serializable.setGender(de.kreth.clubhelper.data.Gender.valueOf(gender));
+	serializable.setCreated(getCreated());
+	serializable.setChanged(getChanged());
+	serializable.setDeleted(getDeleted());
+
+	return serializable;
     }
 }

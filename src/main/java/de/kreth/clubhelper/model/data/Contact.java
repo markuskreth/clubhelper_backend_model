@@ -8,6 +8,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the contact database table.
  */
@@ -36,6 +38,7 @@ public class Contact extends BaseEntity implements Serializable, PersonRelated {
     private String type;
     private String value;
     // bi-directional many-to-one association to Person
+    @JsonIgnore
     @ManyToOne
     private Person person;
 

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import de.kreth.clubhelper.data.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
-import de.kreth.clubhelper.model.data.Person;
 import io.swagger.annotations.ApiOperation;
 
 @Controller

@@ -15,9 +15,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.kreth.clubhelper.model.data.Attendance;
-import de.kreth.clubhelper.model.data.Gender;
-import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.data.Attendance;
+import de.kreth.clubhelper.data.Gender;
+import de.kreth.clubhelper.data.Person;
 
 @JsonTest
 public class AttendanceSerializationTest {

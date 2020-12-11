@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the startpaesse database table.
  * 
@@ -29,6 +31,7 @@ public class Startpass extends BaseEntity implements Serializable, PersonRelated
 
     @OneToOne
     @JoinColumn(name = "person_id")
+    @JsonIgnore
     private Person person;
 
     // bi-directional many-to-one association to StartpassStartrechte

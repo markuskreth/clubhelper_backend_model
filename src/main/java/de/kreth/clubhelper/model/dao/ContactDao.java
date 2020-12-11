@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.kreth.clubhelper.model.data.Contact;
-import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.data.Contact;
+import de.kreth.clubhelper.data.Person;
 
 public interface ContactDao extends CrudRepository<Contact, Long>, ClubhelperDao<Contact> {
 

@@ -4,8 +4,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kreth.clubhelper.data.Adress;
 import de.kreth.clubhelper.model.dao.AdressDao;
-import de.kreth.clubhelper.model.data.Adress;
 
 @RestController
 @RequestMapping("/adress")
