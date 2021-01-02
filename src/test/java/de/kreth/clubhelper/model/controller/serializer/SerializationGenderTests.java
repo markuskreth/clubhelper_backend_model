@@ -14,8 +14,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.kreth.clubhelper.data.Gender;
-import de.kreth.clubhelper.data.Person;
+import de.kreth.clubhelper.model.data.Gender;
+import de.kreth.clubhelper.model.data.Person;
 
 @JsonTest
 public class SerializationGenderTests {
@@ -87,7 +87,7 @@ public class SerializationGenderTests {
 		"	\"birth\": \"2000-01-01\",\n" +
 		"	\"prename\": \"Vorname\",\n" +
 		"	\"surname\": \"Nachname\",\n" +
-		"	\"gender\": \"null\",\n" +
+		"	\"gender\": null,\n" +
 		"	\"groups\": null\n" +
 		"}";
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import de.kreth.clubhelper.data.BaseEntity;
+import de.kreth.clubhelper.model.data.BaseEntity;
 import de.kreth.clubhelper.model.dao.ClubhelperDao;
 
 /**

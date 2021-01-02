@@ -7,7 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import de.kreth.clubhelper.data.BaseEntity;
+
 
 /**
  * The persistent class for the groupDef database table.

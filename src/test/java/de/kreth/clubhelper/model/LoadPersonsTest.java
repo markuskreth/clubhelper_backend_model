@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestPropertySource;
 
-import de.kreth.clubhelper.data.Gender;
-import de.kreth.clubhelper.data.GroupDef;
-import de.kreth.clubhelper.data.Person;
 import de.kreth.clubhelper.model.dao.GroupDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
+import de.kreth.clubhelper.model.data.Gender;
+import de.kreth.clubhelper.model.data.GroupDef;
+import de.kreth.clubhelper.model.data.Person;
 
 @DataJpaTest()
 //@Sql(scripts = "classpath:data.sql")

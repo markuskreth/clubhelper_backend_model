@@ -25,8 +25,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import de.kreth.clubhelper.data.Gender;
-import de.kreth.clubhelper.data.Person;
+import de.kreth.clubhelper.model.data.Gender;
+import de.kreth.clubhelper.model.data.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.controller.PersonController;
 import de.kreth.clubhelper.model.dao.PersonDao;

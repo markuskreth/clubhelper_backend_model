@@ -24,8 +24,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import de.kreth.clubhelper.data.Attendance;
-import de.kreth.clubhelper.data.Person;
+import de.kreth.clubhelper.model.data.Attendance;
+import de.kreth.clubhelper.model.data.Person;
 import de.kreth.clubhelper.model.controller.AttendanceController;
 import de.kreth.clubhelper.model.dao.AttendanceDao;
 import de.kreth.clubhelper.model.dao.PersonDao;

@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.kreth.clubhelper.data.BaseEntity;
-import de.kreth.clubhelper.data.DeletedEntry;
+import de.kreth.clubhelper.model.data.BaseEntity;
+import de.kreth.clubhelper.model.data.DeletedEntry;
 import de.kreth.clubhelper.model.dao.DeletedEntriesDao;
 import de.kreth.clubhelper.model.utils.TimeProvider;
 

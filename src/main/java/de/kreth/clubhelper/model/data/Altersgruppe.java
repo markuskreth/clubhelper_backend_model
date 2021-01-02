@@ -11,10 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.kreth.clubhelper.data.BaseEntity;
-import de.kreth.clubhelper.data.ClubEvent;
-import de.kreth.clubhelper.data.Pflicht;
-
 @Entity
 @Table(name = "altersgruppe")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

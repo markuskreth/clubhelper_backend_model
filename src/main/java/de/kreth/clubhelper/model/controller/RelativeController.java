@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import de.kreth.clubhelper.data.Person;
-import de.kreth.clubhelper.data.Relative;
+import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.model.data.Relative;
 import de.kreth.clubhelper.model.dao.RelativeDao;
 
 @RestController

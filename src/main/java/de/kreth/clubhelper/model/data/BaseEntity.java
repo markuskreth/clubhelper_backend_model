@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import de.kreth.clubhelper.data.EntityAccessor;
+
 
 @MappedSuperclass
 public abstract class BaseEntity implements EntityAccessor {
