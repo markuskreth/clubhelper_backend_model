@@ -10,13 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.kreth.clubhelper.model.data.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
+import de.kreth.clubhelper.model.data.Person;
 import io.swagger.annotations.ApiOperation;
 
 @Controller
@@ -76,7 +78,9 @@ public class PersonController {
     }
 
     @PutMapping(value = "/{id}")
-    public void update(@PathVariable("id") final long id, Person person) {
+    @PreAuthorize("hasAnyRole('trainer', 'admin')")
+    @ApiOperation("Change an existing Person. Restricted to trainers and admins.")
+    public void update(@PathVariable("id") final long id, @RequestBody Person person) {
 	if (id != person.getId()) {
 	    throw new IllegalArgumentException("path id must match person id.");
 	}
@@ -87,11 +91,21 @@ public class PersonController {
 	personDao.save(person);
     }
 
-    public Person insert(Person person) {
+    @PostMapping
+    @PreAuthorize("hasAnyRole('trainer', 'admin')")
+    @ApiOperation("Insert a new Person. Restricted to trainers and admins.")
+    public Person insert(@RequestBody Person p) {
+
+//	Person p = new Person();
+//	p.setPrename(person.getPrename());
+//	p.setSurname(person.getSurname());
+//	p.setBirth(person.getBirth());
+//	p.setGender(person.getGender());
 
 	LocalDateTime now = localDateTimeProvider.now();
-	person.setChanged(now);
-	person.setCreated(now);
-	return personDao.save(person);
+	p.setChanged(now);
+	p.setCreated(now);
+	return personDao.save(p);
     }
+
 }

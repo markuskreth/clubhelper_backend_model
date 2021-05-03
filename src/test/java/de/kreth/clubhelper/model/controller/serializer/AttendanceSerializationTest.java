@@ -15,8 +15,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.kreth.clubhelper.data.Gender;
 import de.kreth.clubhelper.model.data.Attendance;
-import de.kreth.clubhelper.model.data.Gender;
 import de.kreth.clubhelper.model.data.Person;
 
 @JsonTest
@@ -33,7 +33,7 @@ public class AttendanceSerializationTest {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE);
+	person.setGenderType(Gender.FEMALE);
 	LocalDateTime creationTime = LocalDateTime.of(2020, 10, 10, 10, 10, 10);
 	person.setCreated(creationTime);
 	person.setChanged(creationTime);
@@ -54,7 +54,7 @@ public class AttendanceSerializationTest {
 		+ ",\"changed\":\"2020-10-10T10:10:10\","
 		+ "\"created\":\"2020-10-10T10:10:10\",\"deleted\":null,"
 		+ "\"birth\":\"2000-01-01\",\"prename\":\"Vorname\","
-		+ "\"surname\":\"Nachname\",\"gender\":\"FEMALE\",\"groups\":[]}}", jsonString);
+		+ "\"surname\":\"Nachname\",\"gender\":\"2\",\"groups\":[]}}", jsonString);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class AttendanceSerializationTest {
 		+ ",\"changed\":\"2020-10-10T10:10:10\","
 		+ "\"created\":\"2020-10-10T10:10:10\",\"deleted\":null,"
 		+ "\"birth\":\"2000-01-01\",\"prename\":\"Vorname\","
-		+ "\"surname\":\"Nachname\",\"gender\":\"FEMALE\",\"groups\":[]}}";
+		+ "\"surname\":\"Nachname\",\"gender\":\"2\",\"groups\":[]}}";
 
 	Attendance deserialized = objectMapper.readValue(json, Attendance.class);
 	assertEquals(attendance, deserialized);

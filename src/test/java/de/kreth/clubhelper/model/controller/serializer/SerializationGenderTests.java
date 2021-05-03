@@ -14,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.kreth.clubhelper.model.data.Gender;
+import de.kreth.clubhelper.data.Gender;
 import de.kreth.clubhelper.model.data.Person;
 
 @JsonTest
@@ -30,7 +30,7 @@ public class SerializationGenderTests {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE);
+	person.setGenderType(Gender.FEMALE);
 	person.setCreated(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
 	person.setChanged(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
     }
@@ -56,7 +56,7 @@ public class SerializationGenderTests {
 		"	\"birth\": \"2000-01-01\",\n" +
 		"	\"prename\": \"Vorname\",\n" +
 		"	\"surname\": \"Nachname\",\n" +
-		"	\"gender\": \"FEMALE\",\n" +
+		"	\"gender\": \"2\",\n" +
 		"	\"groups\": null\n" +
 		"}";
 
@@ -67,7 +67,7 @@ public class SerializationGenderTests {
 
     @Test
     void serializeNull() throws Exception {
-	person.setGender(null);
+	person.setGenderType((Gender) null);
 	String personJson = objectMapper.writeValueAsString(person);
 
 	int indexOfGender = personJson.indexOf("gender");

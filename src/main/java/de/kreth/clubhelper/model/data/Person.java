@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import de.kreth.clubhelper.data.Gender;
+
 /**
  * The persistent class for the person database table.
  */
@@ -59,12 +61,16 @@ public class Person extends BaseEntity {
 	this.surname = surname;
     }
 
-    public void setGender(Gender gender) {
+    public void setGenderType(Gender gender) {
 	if (gender != null) {
-	    this.gender = gender.getId();
+	    setGender(gender.getId());
 	} else {
 	    this.gender = null;
 	}
+    }
+
+    public void setGender(Integer gender) {
+	this.gender = gender;
     }
 
     public boolean isMember(GroupDef group) {

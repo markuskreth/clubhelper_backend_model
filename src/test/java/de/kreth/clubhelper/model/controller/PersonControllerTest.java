@@ -22,10 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import de.kreth.clubhelper.model.data.Gender;
+import de.kreth.clubhelper.data.Gender;
+import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.GroupDef;
 import de.kreth.clubhelper.model.data.Person;
-import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.testing.TestingDateTimeProvider;
 
 @DataJpaTest
@@ -62,7 +62,7 @@ public class PersonControllerTest {
 
 	person = new Person();
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE);
+	person.setGenderType(Gender.FEMALE);
 	person.setPrename("prename");
 	person.setSurname("surname");
 	person.setChanged(now);
