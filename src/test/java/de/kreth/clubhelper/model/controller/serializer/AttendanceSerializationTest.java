@@ -54,7 +54,7 @@ public class AttendanceSerializationTest {
 		+ ",\"changed\":\"2020-10-10T10:10:10\","
 		+ "\"created\":\"2020-10-10T10:10:10\",\"deleted\":null,"
 		+ "\"birth\":\"2000-01-01\",\"prename\":\"Vorname\","
-		+ "\"surname\":\"Nachname\",\"gender\":\"2\",\"groups\":[]}}", jsonString);
+		+ "\"surname\":\"Nachname\",\"gender\":2,\"groups\":[]}}", jsonString);
     }
 
     @Test

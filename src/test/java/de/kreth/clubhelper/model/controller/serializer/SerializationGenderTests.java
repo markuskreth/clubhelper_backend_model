@@ -43,7 +43,7 @@ public class SerializationGenderTests {
 	indexOfGender = personJson.indexOf(":", indexOfGender + 1);
 	indexOfGender++;
 	String genderValue = personJson.substring(indexOfGender);
-	assertTrue(genderValue.startsWith("\"FEMALE\""), "Gender not serialized: " + genderValue);
+	assertTrue(genderValue.startsWith("2"), "Gender not serialized: " + genderValue);
     }
 
     @Test
