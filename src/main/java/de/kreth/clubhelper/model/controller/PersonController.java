@@ -80,7 +80,7 @@ public class PersonController {
     @PutMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('trainer', 'admin')")
     @ApiOperation("Change an existing Person. Restricted to trainers and admins.")
-    public void update(@PathVariable("id") final long id, @RequestBody Person person) {
+    public Person update(@PathVariable("id") final long id, @RequestBody Person person) {
 	if (id != person.getId()) {
 	    throw new IllegalArgumentException("path id must match person id.");
 	}
@@ -89,6 +89,7 @@ public class PersonController {
 	}
 	person.setChanged(localDateTimeProvider.now());
 	personDao.save(person);
+	return person;
     }
 
     @PostMapping

@@ -93,8 +93,10 @@ class PersonMvcTest {
     @Test
     void callAllPersons() throws Exception {
 	String jsonListOfPersons = "["
-		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"gender\":1,\"groups\":[]},"
-		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"gender\":1,\"groups\":[]}]";
+		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\""
+		+ ",\"gender\":{\"id\":1},\"groups\":[]},"
+		+ "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\""
+		+ ",\"gender\":{\"id\":1},\"groups\":[]}]";
 	mvc.perform(get("/person").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
 		.andExpect(status().isOk())
 		.andExpect(content().string(jsonListOfPersons));
@@ -102,7 +104,9 @@ class PersonMvcTest {
 
     @Test
     void callPerson1() throws Exception {
-	String jsonListOfPersons = "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\",\"gender\":1,\"groups\":[]}";
+	String jsonListOfPersons = "{\"id\":1,\"changed\":null,\"created\":null,\"deleted\":null,\"birth\":\"2000-01-01\",\"prename\":\"prename\",\"surname\":\"surname\""
+		+ ",\"gender\":{\"id\":1},\"groups\":[]}";
+
 	mvc.perform(get("/person/1").accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML))
 		.andExpect(status().isOk())
 		.andExpect(content().string(jsonListOfPersons));

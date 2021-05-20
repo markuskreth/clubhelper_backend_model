@@ -48,13 +48,14 @@ public class AttendanceSerializationTest {
     @Test
     void testSerializeAttendance() throws JsonProcessingException {
 	String jsonString = objectMapper.writeValueAsString(attendance);
-	assertEquals("{\"id\":1,\"changed\":\"2020-10-10T10:10:10\","
+	String expected = "{\"id\":1,\"changed\":\"2020-10-10T10:10:10\","
 		+ "\"created\":\"2020-10-10T10:10:10\",\"deleted\":null,"
 		+ "\"onDate\":\"2020-11-16\",\"person\":{\"id\":0"
 		+ ",\"changed\":\"2020-10-10T10:10:10\","
 		+ "\"created\":\"2020-10-10T10:10:10\",\"deleted\":null,"
 		+ "\"birth\":\"2000-01-01\",\"prename\":\"Vorname\","
-		+ "\"surname\":\"Nachname\",\"gender\":2,\"groups\":[]}}", jsonString);
+		+ "\"surname\":\"Nachname\",\"gender\":{\"id\":2},\"groups\":[]}}";
+	assertEquals(expected, jsonString);
     }
 
     @Test
@@ -65,7 +66,7 @@ public class AttendanceSerializationTest {
 		+ ",\"changed\":\"2020-10-10T10:10:10\","
 		+ "\"created\":\"2020-10-10T10:10:10\",\"deleted\":null,"
 		+ "\"birth\":\"2000-01-01\",\"prename\":\"Vorname\","
-		+ "\"surname\":\"Nachname\",\"gender\":\"2\",\"groups\":[]}}";
+		+ "\"surname\":\"Nachname\",\"gender\":null,\"groups\":[]}}";
 
 	Attendance deserialized = objectMapper.readValue(json, Attendance.class);
 	assertEquals(attendance, deserialized);
