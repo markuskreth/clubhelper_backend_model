@@ -35,3 +35,5 @@ build/
 .directory
 
 src/test/resources/clubhelper_export.sql
+
+*.launch
