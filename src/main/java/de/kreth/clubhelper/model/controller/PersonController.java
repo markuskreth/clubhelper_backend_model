@@ -19,83 +19,85 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.Person;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Controller
 @RequestMapping("/person")
 @PreAuthorize("isAuthenticated()")
+@Api(tags = "Person")
 public class PersonController {
 
-    private LocalDateTimeProvider localDateTimeProvider;
+	private LocalDateTimeProvider localDateTimeProvider;
 
-    private PersonDao personDao;
+	private PersonDao personDao;
 
-    @Autowired
-    public void setPersonDao(PersonDao personDao) {
-	this.personDao = personDao;
-    }
+	@Autowired
+	public void setPersonDao(PersonDao personDao) {
+		this.personDao = personDao;
+	}
 
-    @Autowired
-    public void setLocalDateTimeProvider(LocalDateTimeProvider localDateTimeProvider) {
-	this.localDateTimeProvider = localDateTimeProvider;
-    }
+	@Autowired
+	public void setLocalDateTimeProvider(LocalDateTimeProvider localDateTimeProvider) {
+		this.localDateTimeProvider = localDateTimeProvider;
+	}
 
-    @GetMapping
-    @PreAuthorize("hasAnyRole('trainer', 'admin')")
+	@GetMapping
+	@PreAuthorize("hasAnyRole('trainer', 'admin')")
     @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
-    public @ResponseBody List<Person> getAll() {
-	return personDao.findByDeletedIsNull();
-    }
+	public @ResponseBody List<Person> getAll() {
+		return personDao.findByDeletedIsNull();
+	}
 
-    @GetMapping(value = "/withdeleted")
-    @PreAuthorize("hasAnyRole('trainer', 'admin')")
+	@GetMapping(value = "/withdeleted")
+	@PreAuthorize("hasAnyRole('trainer', 'admin')")
     @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
-    public @ResponseBody List<Person> getAllIncludingDeleted() {
-	return personDao.findAll();
-    }
+	public @ResponseBody List<Person> getAllIncludingDeleted() {
+		return personDao.findAll();
+	}
 
-    @GetMapping(value = "/{id}")
-    public @ResponseBody Optional<Person> getById(@PathVariable("id") final long id) {
-	return personDao.findById(id);
-    }
+	@GetMapping(value = "/{id}")
+	public @ResponseBody Optional<Person> getById(@PathVariable("id") final long id) {
+		return personDao.findById(id);
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public @ResponseBody Person delete(@PathVariable("id") final long id) {
-	Optional<Person> optional = personDao.findById(id);
-	if (optional.isPresent()) {
-	    Person person = optional.get();
+	@DeleteMapping(value = "/{id}")
+	public @ResponseBody Person delete(@PathVariable("id") final long id) {
+		Optional<Person> optional = personDao.findById(id);
+		if (optional.isPresent()) {
+			Person person = optional.get();
 //	    for (Contact c : contactController.getByParentId(person.getId())) {
 //		contactController.delete(c.getId());
 //	    }
 //	    for (Adress a : adressController.getByParentId(person.getId())) {
 //		adressController.delete(a.getId());
 //	    }
-	    person.setDeleted(localDateTimeProvider.now());
-	    personDao.save(person);
+			person.setDeleted(localDateTimeProvider.now());
+			personDao.save(person);
+		}
+
+		return optional.orElseThrow(() -> new RuntimeException("Person not found by id=" + id));
 	}
 
-	return optional.orElseThrow(() -> new RuntimeException("Person not found by id=" + id));
-    }
-
-    @PutMapping(value = "/{id}")
-    @PreAuthorize("hasAnyRole('trainer', 'admin')")
-    @ApiOperation("Change an existing Person. Restricted to trainers and admins.")
-    public Person update(@PathVariable("id") final long id, @RequestBody Person person) {
-	if (id != person.getId()) {
-	    throw new IllegalArgumentException("path id must match person id.");
+	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasAnyRole('trainer', 'admin')")
+//    @ApiOperation("Change an existing Person. Restricted to trainers and admins.")
+	public Person update(@PathVariable("id") final long id, @RequestBody Person person) {
+		if (id != person.getId()) {
+			throw new IllegalArgumentException("path id must match person id.");
+		}
+		if (person.getId() == null || person.getId() < 0) {
+			throw new IllegalStateException("For update id must be set and person must be persistent.");
+		}
+		person.setChanged(localDateTimeProvider.now());
+		personDao.save(person);
+		return person;
 	}
-	if (person.getId() == null || person.getId() < 0) {
-	    throw new IllegalStateException("For update id must be set and person must be persistent.");
-	}
-	person.setChanged(localDateTimeProvider.now());
-	personDao.save(person);
-	return person;
-    }
 
-    @PostMapping
-    @PreAuthorize("hasAnyRole('trainer', 'admin')")
-    @ApiOperation("Insert a new Person. Restricted to trainers and admins.")
-    public Person insert(@RequestBody Person p) {
+	@PostMapping
+	@PreAuthorize("hasAnyRole('trainer', 'admin')")
+//    @ApiOperation("Insert a new Person. Restricted to trainers and admins.")
+	public Person insert(@RequestBody Person p) {
 
 //	Person p = new Person();
 //	p.setPrename(person.getPrename());
@@ -103,10 +105,10 @@ public class PersonController {
 //	p.setBirth(person.getBirth());
 //	p.setGender(person.getGender());
 
-	LocalDateTime now = localDateTimeProvider.now();
-	p.setChanged(now);
-	p.setCreated(now);
-	return personDao.save(p);
-    }
+		LocalDateTime now = localDateTimeProvider.now();
+		p.setChanged(now);
+		p.setCreated(now);
+		return personDao.save(p);
+	}
 
 }
