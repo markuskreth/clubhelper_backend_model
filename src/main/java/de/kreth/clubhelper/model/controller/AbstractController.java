@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import de.kreth.clubhelper.model.data.BaseEntity;
 import de.kreth.clubhelper.model.dao.ClubhelperDao;
@@ -28,7 +29,7 @@ import de.kreth.clubhelper.model.dao.ClubhelperDao;
  * 
  * @param <T> Data type
  */
-@Controller
+@RestController
 //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'STAFF')")
 public abstract class AbstractController<T extends BaseEntity, D extends CrudRepository<T, Long>>
 		implements ClubController<T> {

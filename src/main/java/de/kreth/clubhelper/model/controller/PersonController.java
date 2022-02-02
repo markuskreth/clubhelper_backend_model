@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
@@ -22,7 +22,7 @@ import de.kreth.clubhelper.model.data.Person;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Controller
+@RestController
 @RequestMapping("/person")
 @PreAuthorize("isAuthenticated()")
 @Api(tags = "Person")
@@ -99,16 +99,11 @@ public class PersonController {
 //    @ApiOperation("Insert a new Person. Restricted to trainers and admins.")
 	public Person insert(@RequestBody Person p) {
 
-//	Person p = new Person();
-//	p.setPrename(person.getPrename());
-//	p.setSurname(person.getSurname());
-//	p.setBirth(person.getBirth());
-//	p.setGender(person.getGender());
-
 		LocalDateTime now = localDateTimeProvider.now();
 		p.setChanged(now);
 		p.setCreated(now);
-		return personDao.save(p);
+		Person saved = personDao.save(p);
+		return saved;
 	}
 
 }
