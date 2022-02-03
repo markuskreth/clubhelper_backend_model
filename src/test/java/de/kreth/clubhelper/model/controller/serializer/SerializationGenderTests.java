@@ -30,7 +30,7 @@ public class SerializationGenderTests {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGenderType(Gender.FEMALE);
+	person.setGender(Gender.FEMALE.getId());
 	person.setCreated(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
 	person.setChanged(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
     }
@@ -72,7 +72,7 @@ public class SerializationGenderTests {
 
     @Test
     void serializeNull() throws Exception {
-	person.setGenderType((Gender) null);
+	person.setGender((Integer)null);
 	String personJson = objectMapper.writeValueAsString(person);
 
 	int indexOfGender = personJson.indexOf("gender");

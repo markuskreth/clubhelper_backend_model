@@ -61,14 +61,6 @@ public class Person extends BaseEntity {
 		this.surname = surname;
 	}
 
-	public void setGenderType(Gender gender) {
-		if (gender != null) {
-			setGender(gender.getId());
-		} else {
-			this.gender = null;
-		}
-	}
-
 	public void setGender(Integer gender) {
 		this.gender = gender;
 	}

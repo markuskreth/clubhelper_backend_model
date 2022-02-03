@@ -83,14 +83,14 @@ class ContactMvcTest {
 	p1.setPrename("prename");
 	p1.setSurname("surname");
 	p1.setBirth(LocalDate.of(2000, 1, 1));
-	p1.setGenderType(Gender.MALE);
+	p1.setGender(Gender.MALE.getId());
 
 	p2 = new Person();
 	p2.setId(2);
 	p2.setPrename("prename");
 	p2.setSurname("surname");
 	p2.setBirth(LocalDate.of(2000, 1, 1));
-	p2.setGenderType(Gender.MALE);
+	p2.setGender(Gender.MALE.getId());
 
 	p1c1 = new Contact();
 	p1c1.setId(1);
@@ -117,7 +117,7 @@ class ContactMvcTest {
 	deleted.setPrename("prename");
 	deleted.setSurname("surname");
 	deleted.setBirth(LocalDate.of(2000, 1, 1));
-	deleted.setGenderType(Gender.MALE);
+	deleted.setGender(Gender.MALE.getId());
 	deleted.setDeleted(LocalDateTime.of(2020, 11, 11, 11, 11, 11));
 
 	now = LocalDateTime.of(2020, 11, 13, 22, 22, 22);

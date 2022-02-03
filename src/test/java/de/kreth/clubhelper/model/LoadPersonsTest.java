@@ -65,7 +65,7 @@ class LoadPersonsTest {
 	p.setPrename("prename");
 	p.setSurname("surname");
 	p.setBirth(LocalDate.of(1981, 3, 3));
-	p.setGenderType(Gender.MALE);
+	p.setGender(Gender.MALE.getId());
 	personDao.save(p);
 	assertNotNull(p.getId());
 	personDao.delete(p);

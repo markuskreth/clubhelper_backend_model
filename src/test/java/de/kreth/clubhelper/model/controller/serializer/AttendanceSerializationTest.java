@@ -33,7 +33,7 @@ public class AttendanceSerializationTest {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGenderType(Gender.FEMALE);
+	person.setGender(Gender.FEMALE.getId());
 	LocalDateTime creationTime = LocalDateTime.of(2020, 10, 10, 10, 10, 10);
 	person.setCreated(creationTime);
 	person.setChanged(creationTime);
