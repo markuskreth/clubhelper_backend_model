@@ -13,8 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import de.kreth.clubhelper.data.Gender;
-
 /**
  * The persistent class for the person database table.
  */

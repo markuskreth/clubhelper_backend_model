@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.kreth.clubhelper.data.Gender;
 import de.kreth.clubhelper.model.data.Person;
 
 @JsonTest
@@ -30,7 +29,7 @@ public class SerializationGenderTests {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE.getId());
+	person.setGender(2);
 	person.setCreated(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
 	person.setChanged(LocalDateTime.of(2020, 10, 10, 10, 10, 10));
     }
@@ -67,7 +66,7 @@ public class SerializationGenderTests {
 
 	Person p = objectMapper.readValue(json, Person.class);
 
-	assertEquals(Gender.FEMALE, p.getGender());
+	assertEquals(2, p.getGender());
     }
 
     @Test

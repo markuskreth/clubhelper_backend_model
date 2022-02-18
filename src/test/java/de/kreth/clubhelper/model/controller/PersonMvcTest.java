@@ -25,7 +25,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import de.kreth.clubhelper.data.Gender;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.Person;
@@ -65,21 +64,21 @@ class PersonMvcTest {
 	p1.setPrename("prename");
 	p1.setSurname("surname");
 	p1.setBirth(LocalDate.of(2000, 1, 1));
-	p1.setGender(Gender.MALE.getId());
+	p1.setGender(1);
 
 	p2 = new Person();
 	p2.setId(1);
 	p2.setPrename("prename");
 	p2.setSurname("surname");
 	p2.setBirth(LocalDate.of(2000, 1, 1));
-	p2.setGender(Gender.MALE.getId());
+	p2.setGender(1);
 
 	deleted = new Person();
 	deleted.setId(1);
 	deleted.setPrename("prename");
 	deleted.setSurname("surname");
 	deleted.setBirth(LocalDate.of(2000, 1, 1));
-	deleted.setGender(Gender.MALE.getId());
+	deleted.setGender(1);
 	deleted.setDeleted(LocalDateTime.of(2020, 11, 11, 11, 11, 11));
 
 	now = LocalDateTime.of(2020, 11, 13, 22, 22, 22);

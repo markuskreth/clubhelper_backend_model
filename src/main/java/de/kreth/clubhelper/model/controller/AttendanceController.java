@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.kreth.clubhelper.model.data.Attendance;
-import de.kreth.clubhelper.model.data.Person;
 import de.kreth.clubhelper.model.dao.AttendanceDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
+import de.kreth.clubhelper.model.data.Attendance;
+import de.kreth.clubhelper.model.data.Person;
 
 @Controller
 @RequestMapping("/attendance")

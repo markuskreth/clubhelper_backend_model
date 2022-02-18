@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
 import de.kreth.clubhelper.model.data.Person;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/person")
 @PreAuthorize("isAuthenticated()")
-@Api(tags = "Person")
 public class PersonController {
 
 	private LocalDateTimeProvider localDateTimeProvider;
@@ -44,14 +41,12 @@ public class PersonController {
 
 	@GetMapping
 	@PreAuthorize("hasAnyRole('trainer', 'admin')")
-    @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
 	public @ResponseBody List<Person> getAll() {
 		return personDao.findByDeletedIsNull();
 	}
 
 	@GetMapping(value = "/withdeleted")
 	@PreAuthorize("hasAnyRole('trainer', 'admin')")
-    @ApiOperation("Get a list of all persons. Restricted to trainers and admins.")
 	public @ResponseBody List<Person> getAllIncludingDeleted() {
 		return personDao.findAll();
 	}

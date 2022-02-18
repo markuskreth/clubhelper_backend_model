@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.2</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -16,7 +16,7 @@
 	<description>Model for Clubhelper Projects</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<org.keycloak.version>11.0.1</org.keycloak.version>
 		<sonar.projectKey>cb326711c47c07bb48e5c6e4aa702806f23fa772</sonar.projectKey>
 	</properties>
@@ -46,12 +46,6 @@
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-security-adapter</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
 		</dependency>
 
 		<dependency>

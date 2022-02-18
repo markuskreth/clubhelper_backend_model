@@ -15,7 +15,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.kreth.clubhelper.data.Gender;
 import de.kreth.clubhelper.model.data.Attendance;
 import de.kreth.clubhelper.model.data.Person;
 
@@ -33,7 +32,7 @@ public class AttendanceSerializationTest {
 	person.setPrename("Vorname");
 	person.setSurname("Nachname");
 	person.setBirth(LocalDate.of(2000, 1, 1));
-	person.setGender(Gender.FEMALE.getId());
+	person.setGender(2);
 	LocalDateTime creationTime = LocalDateTime.of(2020, 10, 10, 10, 10, 10);
 	person.setCreated(creationTime);
 	person.setChanged(creationTime);
