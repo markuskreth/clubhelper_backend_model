@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.keycloak.adapters.springboot.KeycloakAutoConfiguration;
 import org.keycloak.adapters.springboot.KeycloakBaseSpringBootConfiguration;
@@ -38,6 +39,7 @@ import de.kreth.clubhelper.model.data.Person;
 	KeycloakAutoConfiguration.class,
 	KeycloakBaseSpringBootConfiguration.class
 }, controllers = { PersonController.class })
+@Disabled
 class PersonMvcTest {
 
     @MockBean(name = "personDao")

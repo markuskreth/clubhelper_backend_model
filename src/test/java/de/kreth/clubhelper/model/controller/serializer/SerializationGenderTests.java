@@ -47,7 +47,7 @@ public class SerializationGenderTests {
 	    endOfGenderValue = personJson.length();
 	}
 	String genderValue = personJson.substring(indexOfGender, endOfGenderValue);
-	assertEquals("{\"id\":2}", genderValue, "Gender not serialized: " + genderValue);
+	assertEquals("2", genderValue, "Gender not serialized: " + genderValue);
     }
 
     @Test

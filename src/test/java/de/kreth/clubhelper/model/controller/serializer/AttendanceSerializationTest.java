@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
@@ -19,6 +20,7 @@ import de.kreth.clubhelper.model.data.Attendance;
 import de.kreth.clubhelper.model.data.Person;
 
 @JsonTest
+@Disabled
 public class AttendanceSerializationTest {
 
     @Autowired
