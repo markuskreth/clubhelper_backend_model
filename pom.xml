@@ -84,6 +84,11 @@
 			<groupId>de.kreth.clubhelper</groupId>
 			<artifactId>clubhelper-data</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.kreth.clubhelper</groupId>
+			<artifactId>clubhelper-entity</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -95,4 +100,9 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<url>scm:git:https://github.com/markuskreth/clubhelper_backend_model.git</url>
+		<developerConnection>scm:git:https://github.com/markuskreth/clubhelper_backend_model.git</developerConnection>
+		<connection>scm:git:https://github.com/markuskreth/clubhelper_backend_model.git</connection>
+	</scm>
 </project>

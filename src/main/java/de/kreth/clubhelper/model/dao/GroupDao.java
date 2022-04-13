@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.kreth.clubhelper.model.data.GroupDef;
+import de.kreth.clubhelper.entity.GroupDef;
 
 public interface GroupDao extends CrudRepository<GroupDef, Long> {
 

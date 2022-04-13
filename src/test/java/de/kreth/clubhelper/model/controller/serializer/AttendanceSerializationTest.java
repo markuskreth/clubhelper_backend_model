@@ -16,8 +16,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.kreth.clubhelper.model.data.Attendance;
-import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.entity.Attendance;
+import de.kreth.clubhelper.entity.Person;
 
 @JsonTest
 @Disabled

@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kreth.clubhelper.entity.BaseEntity;
 import de.kreth.clubhelper.model.dao.ClubhelperDao;
-import de.kreth.clubhelper.model.data.BaseEntity;
 
 /**
  * Default Controller implementing all functionality for all {@link Data} types.

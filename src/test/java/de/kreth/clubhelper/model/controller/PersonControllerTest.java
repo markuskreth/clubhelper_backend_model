@@ -22,9 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import de.kreth.clubhelper.entity.GroupDef;
+import de.kreth.clubhelper.entity.Person;
 import de.kreth.clubhelper.model.dao.PersonDao;
-import de.kreth.clubhelper.model.data.GroupDef;
-import de.kreth.clubhelper.model.data.Person;
 import de.kreth.clubhelper.model.testing.TestingDateTimeProvider;
 
 @DataJpaTest

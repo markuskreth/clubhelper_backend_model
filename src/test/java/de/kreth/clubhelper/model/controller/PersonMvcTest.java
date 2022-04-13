@@ -26,9 +26,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import de.kreth.clubhelper.entity.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.PersonDao;
-import de.kreth.clubhelper.model.data.Person;
 
 @WebMvcTest(excludeAutoConfiguration = {
 	DataSourceAutoConfiguration.class,

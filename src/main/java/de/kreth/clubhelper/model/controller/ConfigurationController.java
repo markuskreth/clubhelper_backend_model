@@ -25,31 +25,31 @@ public class ConfigurationController {
 
     @GetMapping
     public @ResponseBody SystemSettings getSystemInfo() {
-
-	Authentication authentication = getAuthentication();
-
-	SystemSettings settings = new SystemSettings();
-	settings.loginUser = getLoggedInUser();
-	settings.loginUserName = authentication.getName();
-	settings.authorities = authentication.getAuthorities();
-
-	if (settings.loginUser != null) {
-	    KeycloakSecurityContext context = settings.loginUser.getKeycloakSecurityContext();
-	    settings.realm = context.getRealm();
-	    AccessToken token = context.getToken();
-	    settings.email = token.getEmail();
-	    settings.familyName = token.getFamilyName();
-	    settings.givenName = token.getGivenName();
-	    settings.birthdate = token.getBirthdate();
-	    settings.gender = token.getGender();
-	    settings.tokenName = token.getName();
-
-	    AuthorizationContext authorizationContext = context.getAuthorizationContext();
-	    if (authorizationContext != null) {
-		settings.permissions = authorizationContext.getPermissions();
-	    }
-	}
-	return settings;
+	
+		Authentication authentication = getAuthentication();
+	
+		SystemSettings settings = new SystemSettings();
+		settings.loginUser = getLoggedInUser();
+		settings.loginUserName = authentication.getName();
+		settings.authorities = authentication.getAuthorities();
+	
+		if (settings.loginUser != null) {
+		    KeycloakSecurityContext context = settings.loginUser.getKeycloakSecurityContext();
+		    settings.realm = context.getRealm();
+		    AccessToken token = context.getToken();
+		    settings.email = token.getEmail();
+		    settings.familyName = token.getFamilyName();
+		    settings.givenName = token.getGivenName();
+		    settings.birthdate = token.getBirthdate();
+		    settings.gender = token.getGender();
+		    settings.tokenName = token.getName();
+	
+		    AuthorizationContext authorizationContext = context.getAuthorizationContext();
+		    if (authorizationContext != null) {
+		    	settings.permissions = authorizationContext.getPermissions();
+		    }
+		}
+		return settings;
     }
 
     @GetMapping("/secured")

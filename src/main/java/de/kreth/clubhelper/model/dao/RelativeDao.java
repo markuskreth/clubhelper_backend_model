@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import de.kreth.clubhelper.model.data.Relative;
+import de.kreth.clubhelper.entity.Relative;
 
 public interface RelativeDao extends CrudRepository<Relative, Long> {
 

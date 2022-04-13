@@ -1,10 +1,19 @@
 package de.kreth.clubhelper.model.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +25,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kreth.clubhelper.data.OrderBy;
+import de.kreth.clubhelper.entity.Attendance;
+import de.kreth.clubhelper.entity.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
+import de.kreth.clubhelper.model.dao.AttendanceDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
-import de.kreth.clubhelper.model.data.Person;
 
 @RestController
 @RequestMapping("/person")
@@ -28,12 +40,18 @@ public class PersonController {
 	private LocalDateTimeProvider localDateTimeProvider;
 
 	private PersonDao personDao;
+    private AttendanceDao attendanceDao;
 
 	@Autowired
 	public void setPersonDao(PersonDao personDao) {
 		this.personDao = personDao;
 	}
 
+	@Autowired
+	public void setAttendanceDao(AttendanceDao attendanceDao) {
+		this.attendanceDao = attendanceDao;
+	}
+	
 	@Autowired
 	public void setLocalDateTimeProvider(LocalDateTimeProvider localDateTimeProvider) {
 		this.localDateTimeProvider = localDateTimeProvider;
@@ -45,6 +63,93 @@ public class PersonController {
 		return personDao.findByDeletedIsNull();
 	}
 
+	@GetMapping(value = "/{order}")
+	@PreAuthorize("hasAnyRole('trainer', 'admin')")
+	public @ResponseBody List<Person> getAllOrdered(@PathVariable("order")OrderBy order) {
+
+		List<Person> list;
+		switch (order) {
+		case ATTENDANCE:
+			list = orderByAttendance();
+			break;
+		case NAME:
+			list = personDao.findByDeletedIsNull(Sort.by(Order.asc("surname"), Order.asc("prename")));
+			break;
+		default:
+			list = personDao.findByDeletedIsNull(Sort.by(Order.asc("id")));
+			break;
+		}
+		
+		return list;
+	}
+
+	private List<Person> orderByAttendance() {
+		List<Attendance> attendances = attendanceDao
+				.findByChangedGreaterThan(LocalDateTime.now().minusYears(2));
+		
+		Map<Person, Long> personMap = attendances.parallelStream()
+				.map(Attendance::getPerson)
+				.collect(Collectors.toSet())
+				.parallelStream()
+				.collect(Collectors.toMap(Function.identity(), a -> 0L));
+		
+		Map<Person, LocalDate> personLastDate = new HashMap<Person, LocalDate>();
+		
+		long maxCount = 0;
+		for (Attendance attendance : attendances) {
+			Person person = attendance.getPerson();
+			Long count = personMap.get(person);
+			personMap.put(person, count + 1);
+			if (maxCount < count +1) {
+				maxCount = count + 1;
+			}
+			if (personLastDate.containsKey(person)) {
+				if (attendance.getOnDate().isAfter(personLastDate.get(person))) {
+					personLastDate.put(person, attendance.getOnDate());
+				}
+			} else {
+				personLastDate.put(person, attendance.getOnDate());
+			}
+		}
+
+		List<Person> result = new ArrayList<Person>(getAll());
+		result.sort(new Comparator<Person>() {
+
+			@Override
+			public int compare(Person o1, Person o2) {
+				LocalDate date1 = personLastDate.get(o1);
+				LocalDate date2 = personLastDate.get(o2);
+				if (isEqual(date1, date2)) {
+					long count1 = personMap.get(o1).longValue();
+					long count2 = personMap.get(o2).longValue();
+					return Long.compare(count1, count2);	
+				} else if (date1 == null || date2 == null) {
+					if (date1 == null) {
+						return 1;
+					} else {
+						return -1;
+					}
+				} else {
+					return date2.compareTo(date1);
+				}
+			}
+		});
+		
+		return result;
+	}
+
+	boolean isEqual (LocalDate d1, LocalDate d2) {
+		if (d1 == null && d2 == null) {
+			return true;
+		}
+		if (d1 != null) {
+			return d1.equals(d2);
+		} else {
+			return d2.equals(d1);
+		}
+		
+	}
+	
 	@GetMapping(value = "/withdeleted")
 	@PreAuthorize("hasAnyRole('trainer', 'admin')")
 	public @ResponseBody List<Person> getAllIncludingDeleted() {

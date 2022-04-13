@@ -23,6 +23,9 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.kreth.clubhelper.entity.BaseEntity;
+import de.kreth.clubhelper.entity.EntityAccessor;
+
 @JsonTest
 public class SerializeAllDataClasses {
 

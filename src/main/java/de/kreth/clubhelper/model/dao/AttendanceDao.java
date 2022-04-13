@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.kreth.clubhelper.model.data.Attendance;
-import de.kreth.clubhelper.model.data.Person;
+import de.kreth.clubhelper.entity.Attendance;
+import de.kreth.clubhelper.entity.Person;
 
 public interface AttendanceDao extends CrudRepository<Attendance, Long>, ClubhelperDao<Attendance> {
 

@@ -24,11 +24,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import de.kreth.clubhelper.entity.Attendance;
+import de.kreth.clubhelper.entity.Person;
 import de.kreth.clubhelper.model.controller.AttendanceController;
 import de.kreth.clubhelper.model.dao.AttendanceDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
-import de.kreth.clubhelper.model.data.Attendance;
-import de.kreth.clubhelper.model.data.Person;
 
 @WebMvcTest(excludeAutoConfiguration = {
 	SecurityAutoConfiguration.class,

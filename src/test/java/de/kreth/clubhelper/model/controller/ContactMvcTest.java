@@ -31,11 +31,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.kreth.clubhelper.entity.Contact;
+import de.kreth.clubhelper.entity.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
 import de.kreth.clubhelper.model.dao.ContactDao;
 import de.kreth.clubhelper.model.dao.PersonDao;
-import de.kreth.clubhelper.model.data.Contact;
-import de.kreth.clubhelper.model.data.Person;
 
 @WebMvcTest(excludeAutoConfiguration = {
 	DataSourceAutoConfiguration.class,
