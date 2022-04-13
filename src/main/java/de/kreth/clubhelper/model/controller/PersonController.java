@@ -63,7 +63,7 @@ public class PersonController {
 		return personDao.findByDeletedIsNull();
 	}
 
-	@GetMapping(value = "/{order}")
+	@GetMapping(value = "/ordered/{order}")
 	@PreAuthorize("hasAnyRole('trainer', 'admin')")
 	public @ResponseBody List<Person> getAllOrdered(@PathVariable("order")OrderBy order) {
 
@@ -84,25 +84,23 @@ public class PersonController {
 	}
 
 	private List<Person> orderByAttendance() {
-		List<Attendance> attendances = attendanceDao
-				.findByChangedGreaterThan(LocalDateTime.now().minusYears(2));
-		
-		Map<Person, Long> personMap = attendances.parallelStream()
-				.map(Attendance::getPerson)
-				.collect(Collectors.toSet())
+
+		Map<Person, Long> personMap = getAll()
 				.parallelStream()
 				.collect(Collectors.toMap(Function.identity(), a -> 0L));
 		
-		Map<Person, LocalDate> personLastDate = new HashMap<Person, LocalDate>();
+		List<Attendance> attendances = attendanceDao
+				.findByChangedGreaterThan(LocalDateTime.now().minusYears(2));
 		
-		long maxCount = 0;
+		Map<Person, LocalDate> personLastDate = new HashMap<>();
+		
 		for (Attendance attendance : attendances) {
 			Person person = attendance.getPerson();
+			if (person.isDeleted()) {
+				continue;
+			}
 			Long count = personMap.get(person);
 			personMap.put(person, count + 1);
-			if (maxCount < count +1) {
-				maxCount = count + 1;
-			}
 			if (personLastDate.containsKey(person)) {
 				if (attendance.getOnDate().isAfter(personLastDate.get(person))) {
 					personLastDate.put(person, attendance.getOnDate());
@@ -112,7 +110,7 @@ public class PersonController {
 			}
 		}
 
-		List<Person> result = new ArrayList<Person>(getAll());
+		List<Person> result = new ArrayList<Person>(personMap.keySet());
 		result.sort(new Comparator<Person>() {
 
 			@Override
@@ -130,7 +128,11 @@ public class PersonController {
 						return -1;
 					}
 				} else {
-					return date2.compareTo(date1);
+					int compareTo = date2.compareTo(date1);
+					if (compareTo == 0) {
+						compareTo = Long.compare(o1.getId(), o2.getId());
+					}
+					return compareTo;
 				}
 			}
 		});
