@@ -10,7 +10,7 @@ import de.kreth.clubhelper.model.dao.ContactDao;
 @RestController
 @RequestMapping("/contact")
 @PreAuthorize("isAuthenticated()")
-public class ContactController extends AbstractController<Contact, ContactDao> {
+public class ContactController extends AbstractControllerPersonRelated<Contact, ContactDao> {
 
     public ContactController() {
 	super(Contact.class);

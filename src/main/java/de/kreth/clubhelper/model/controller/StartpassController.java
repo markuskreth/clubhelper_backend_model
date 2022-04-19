@@ -8,10 +8,10 @@ import de.kreth.clubhelper.model.dao.StartpassDao;
 
 @RestController
 @RequestMapping("/startpass")
-public class StartpassController extends AbstractController<Startpass, StartpassDao> {
+public class StartpassController extends AbstractControllerPersonRelated<Startpass, StartpassDao> {
 
-	public StartpassController() {
-		super(Startpass.class);
-	}
+    public StartpassController() {
+	super(Startpass.class);
+    }
 
 }

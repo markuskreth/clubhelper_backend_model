@@ -3,10 +3,9 @@ package de.kreth.clubhelper.model.dao;
 import java.util.Date;
 import java.util.List;
 
-public interface ClubhelperDao<T>
+import de.kreth.clubhelper.entity.EntityAccessor;
+
+public interface ClubhelperDao<T extends EntityAccessor>
 {
-
-   List<T> findByPersonId(long personId);
-
    List<T> findByChangedGreaterThan(Date date);
 }

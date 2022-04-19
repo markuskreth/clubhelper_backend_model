@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class RelativeController extends AbstractController<Relative, RelativeDao
 	super(Relative.class);
     }
 
-    @Override
+    @GetMapping(value = "/for/{id}")
     public List<Relative> getByParentId(long id) {
 	return relativeDao.findByPersonId1OrPerson2Id(id).stream()
 		.map(r -> map(id, r))

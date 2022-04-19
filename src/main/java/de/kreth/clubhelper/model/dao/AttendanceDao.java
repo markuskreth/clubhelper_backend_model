@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import de.kreth.clubhelper.entity.Attendance;
 import de.kreth.clubhelper.entity.Person;
 
-public interface AttendanceDao extends CrudRepository<Attendance, Long>, ClubhelperDao<Attendance> {
+public interface AttendanceDao extends CrudRepository<Attendance, Long>, ClubhelperDaoPersonRelated<Attendance> {
 
     List<Attendance> findByOnDate(LocalDate onDate);
 

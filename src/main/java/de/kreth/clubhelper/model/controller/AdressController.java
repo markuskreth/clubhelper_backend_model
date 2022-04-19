@@ -10,10 +10,10 @@ import de.kreth.clubhelper.model.dao.AdressDao;
 @RestController
 @RequestMapping("/adress")
 @PreAuthorize("isAuthenticated()")
-public class AdressController extends AbstractController<Adress, AdressDao> {
+public class AdressController extends AbstractControllerPersonRelated<Adress, AdressDao> {
 
-    public AdressController() {
-	super(Adress.class);
-    }
+	public AdressController() {
+		super(Adress.class);
+	}
 
 }
