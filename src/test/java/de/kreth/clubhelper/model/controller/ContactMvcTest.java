@@ -31,6 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.kreth.clubhelper.data.ContactType;
 import de.kreth.clubhelper.entity.Contact;
 import de.kreth.clubhelper.entity.Person;
 import de.kreth.clubhelper.model.config.LocalDateTimeProvider;
@@ -93,22 +94,22 @@ class ContactMvcTest {
 
 	p1c1 = new Contact();
 	p1c1.setId(1);
-	p1c1.setType(Contact.Type.EMAIL.getName());
+	p1c1.setType(ContactType.EMAIL.getName());
 	p1c1.setValue("p1@test.de");
 
 	p1c2 = new Contact();
 	p1c2.setId(2);
-	p1c2.setType(Contact.Type.MOBILE.getName());
+	p1c2.setType(ContactType.MOBILE.getName());
 	p1c2.setValue("015555666655");
 
 	p2c1 = new Contact();
 	p2c1.setId(3);
-	p2c1.setType(Contact.Type.EMAIL.getName());
+	p2c1.setType(ContactType.EMAIL.getName());
 	p2c1.setValue("p2@test.de");
 
 	p2c2 = new Contact();
 	p2c2.setId(4);
-	p2c2.setType(Contact.Type.MOBILE.getName());
+	p2c2.setType(ContactType.MOBILE.getName());
 	p2c2.setValue("015555666677");
 
 	deleted = new Person();
