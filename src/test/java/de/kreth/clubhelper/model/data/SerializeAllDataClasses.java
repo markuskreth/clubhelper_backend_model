@@ -32,8 +32,8 @@ public class SerializeAllDataClasses {
     @Autowired
     ObjectMapper mapper;
 
-    @MethodSource("classList")
     @ParameterizedTest
+    @MethodSource("classList")
     void testLoadInstance(Class<?> persistentClass, Class<?> dataClass)
 	    throws ReflectiveOperationException, IllegalArgumentException,
 	    SecurityException, IOException {
@@ -64,7 +64,7 @@ public class SerializeAllDataClasses {
 
     static Stream<Arguments> classList() {
 	Reflections reflections = new Reflections(new ConfigurationBuilder()
-		.forPackages("de.kreth.clubhelper.model.data")
+		.forPackages("de.kreth.clubhelper.entity")
 		.addScanners(new SubTypesScanner(true)));
 
 	Set<Class<? extends Serializable>> persistentClasses = reflections.getSubTypesOf(Serializable.class);
