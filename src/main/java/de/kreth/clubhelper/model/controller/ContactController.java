@@ -48,7 +48,7 @@ public class ContactController extends AbstractControllerPersonRelated<Contact, 
 	try {
 	    PhoneNumber number = phoneUtil.parse(toSave.getValue(), "DE");
 	    if (phoneUtil.isValidNumber(number)) {
-		toSave.setValue(phoneUtil.format(number, PhoneNumberFormat.INTERNATIONAL));
+		toSave.setValue(phoneUtil.format(number, PhoneNumberFormat.NATIONAL));
 	    }
 	} catch (NumberParseException e) {
 	    logger.warn("Error parsing Phone Number: {}", toSave);
